@@ -1,5 +1,5 @@
 import React from "react";
-import { useDarkMode } from "../../hooks/darkMode.js";
+import { useDarkMode } from "../../hooks/darkMode";
 import './ThemeToggle.css';
 export const ThemeToggle = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
