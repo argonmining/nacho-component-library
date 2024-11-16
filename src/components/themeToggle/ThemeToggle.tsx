@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import './styles.module.css'
 import {useDarkMode} from "../../hooks/darkMode";
 
-export const ThemeToggle:FC = () => {
+const ThemeToggle:FC = () => {
     const {isDarkMode, toggleDarkMode} = useDarkMode()
     return <div className="dark-mode-toggle sidebar-dark-mode-toggle">
                             <span className="dark-mode-label">
@@ -18,3 +18,5 @@ export const ThemeToggle:FC = () => {
         </label>
     </div>
 }
+
+export default ThemeToggle

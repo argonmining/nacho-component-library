@@ -1,3 +1,4 @@
 import { FC } from "react";
 import './styles.module.css';
-export declare const ThemeToggle: FC;
+declare const ThemeToggle: FC;
+export default ThemeToggle;
