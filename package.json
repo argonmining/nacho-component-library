@@ -2,8 +2,7 @@
   "name": "nacho-component-library",
   "version": "0.0.6",
   "type": "module",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "main": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
   "private": true,
   "exports": {
