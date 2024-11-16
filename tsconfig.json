@@ -4,13 +4,18 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
-  "include": ["lib", "lib"],
+  "include": [
+    "src",
+    "src"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "target": "ES2022",
     "moduleResolution": "Node",
     "module": "ES2022",
+    "outDir": "./dist/",
+    "rootDir": "./src"
   },
   "lib": ["ES2022"]
 }

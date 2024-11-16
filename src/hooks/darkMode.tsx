@@ -1,5 +1,7 @@
 import React, {useEffect, useState, createContext, FC, PropsWithChildren, useContext} from "react";
-import {getLocalStorageItem, setLocalStorageItem} from "../services";
+import {getLocalStorageItem, setLocalStorageItem} from "../services/LocalStorageHelper";
+
+
 
 const DarkModeContext = createContext({
     isDarkMode: false,

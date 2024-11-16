@@ -11,24 +11,24 @@ export default defineConfig({
     plugins: [
         react(),
         libInjectCss(),
-        dts({include: ['lib']})
+        dts({include: ['src']})
     ],
     build: {
         lib: {
-            entry: resolve(__dirname, 'lib/main.ts'),
+            entry: resolve(__dirname, 'src/main.ts'),
             formats: ['es']
         },
         copyPublicDir: false,
         rollupOptions: {
             external: ['react', 'react/jsx-runtime'],
             input: Object.fromEntries(
-                glob.sync('lib/**/*.{ts,tsx}', {
-                    ignore: ["lib/**/*.d.ts"],
+                glob.sync('src/**/*.{ts,tsx}', {
+                    ignore: ["src/**/*.d.ts"],
                 }).map(file => [
                     // The name of the entry point
                     // lib/nested/foo.ts becomes nested/foo
                     relative(
-                        'lib',
+                        'src',
                         file.slice(0, file.length - extname(file).length)
                     ),
                     // The absolute path to the entry file

@@ -1,6 +1,6 @@
 import React from "react";
 import './styles.module.css';
-import { useDarkMode } from "../../hooks";
+import { useDarkMode } from "../../hooks/darkMode";
 export const ThemeToggle = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
     return React.createElement("div", { className: "dark-mode-toggle sidebar-dark-mode-toggle" },
