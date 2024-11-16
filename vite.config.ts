@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
-import { extname, relative, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
-import { glob } from 'glob'
+import {defineConfig} from 'vite'
+import {extname, relative, resolve} from 'path'
+import {fileURLToPath} from 'node:url'
+import {glob} from 'glob'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
-import { libInjectCss } from 'vite-plugin-lib-inject-css'
+import {libInjectCss} from 'vite-plugin-lib-inject-css'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,8 +15,10 @@ export default defineConfig({
     ],
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/main.ts'),
-            formats: ['es']
+            entry: resolve(__dirname, 'src/index.ts'),
+            formats: ['es'],
+            name: "nacho-component-library",
+            fileName: "nacho-component-library"
         },
         copyPublicDir: false,
         rollupOptions: {

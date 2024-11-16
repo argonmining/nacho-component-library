@@ -1,5 +1,5 @@
 import { jsxs as s, jsx as e } from "react/jsx-runtime";
-import { u as r } from "../../darkMode-ye1zL5RW.js";
+import { useDarkMode as r } from "../../hooks/darkMode.js";
 const c = () => {
   const { isDarkMode: a, toggleDarkMode: o } = r();
   return /* @__PURE__ */ s("div", { className: "dark-mode-toggle sidebar-dark-mode-toggle", children: [
