@@ -5,19 +5,11 @@
   "main": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
   "private": true,
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
   "files": [
     "/lib"
   ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "tsc",
-    "test": "react-scripts test"
+    "build": "tsc"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -30,8 +22,5 @@
     "eslint": "^9.15.0",
     "typescript": "^5.6.3",
     "react-scripts": "^5.0.1"
-  },
-  "sideEffects": [
-    "**/*.css"
-  ]
+  }
 }
