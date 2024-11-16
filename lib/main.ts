@@ -1,3 +1,3 @@
-export * from './components'
+export * from './components/themeToggle'
 export * from './hooks'
 export * from './services'

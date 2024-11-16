@@ -1,21 +1,16 @@
 {
-  "compilerOptions": {
-    "target": "es2021",
-    "baseUrl": "./",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "module": "es2022",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "paths": {
-    }
-  },
-  "lib": ["es2021"],
-  "include": [
-    "src",
-    "src/declaration.d.ts"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
   ],
-  "exclude": ["node_modules", "build",
-    "dist", "src/**/*.js", "src/**/*.jsx"]
+  "include": ["lib", "lib"],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "target": "ES2022",
+    "moduleResolution": "Node",
+    "module": "ES2022",
+  },
+  "lib": ["ES2022"]
 }
