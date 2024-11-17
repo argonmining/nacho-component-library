@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import './styles.module.css'
+import './ThemeToggle.css'
 import {useDarkMode} from "../../hooks/darkMode";
 
 export const ThemeToggle:FC = () => {

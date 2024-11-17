@@ -1,3 +1,3 @@
 import { FC } from "react";
-import './styles.module.css';
+import './ThemeToggle.css';
 export declare const ThemeToggle: FC;
