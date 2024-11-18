@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
-type Props = Record<string, unknown> & {
+import { LinkProps } from 'react-router-dom';
+type Props = LinkProps & {
     to: string;
     tooltip: string;
     children: ReactNode;

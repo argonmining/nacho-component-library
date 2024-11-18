@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import './Image.css';
-type Props = Record<string, unknown> & {
+import { ImageProps } from "react-bootstrap";
+type Props = ImageProps & {
     src: string;
     alt: string;
 };
