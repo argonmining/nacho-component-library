@@ -2,17 +2,16 @@
   "name": "nacho-component-library",
   "version": "0.0.6",
   "private": true,
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "clean": "rimraf dist/",
-    "copy-files": "copyfiles -u 1 src/**/*.css dist/esm/",
-    "build": "pnpm clean && pnpm run build:esm && pnpm run build:cjs && pnpm copy-files",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+    "copy-files": "copyfiles -u 1 src/**/*.css dist/",
+    "build": "pnpm clean && pnpm run build:esm && pnpm copy-files",
+    "build:esm": "tsc"
   },
   "peerDependencies": {
     "react": "^18.3.1",
