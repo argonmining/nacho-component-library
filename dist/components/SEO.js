@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-const SEO = ({ title, description, keywords, canonicalUrl }) => {
+export const SEO = ({ title, description, keywords, canonicalUrl }) => {
     const fullTitle = `${title} | KatScan - KRC-20 Explorer for Kaspa`;
     return (React.createElement(Helmet, null,
         React.createElement("title", null, fullTitle),
@@ -8,5 +8,4 @@ const SEO = ({ title, description, keywords, canonicalUrl }) => {
         React.createElement("meta", { name: "keywords", content: keywords }),
         canonicalUrl && React.createElement("link", { rel: "canonical", href: canonicalUrl })));
 };
-export default SEO;
 //# sourceMappingURL=SEO.js.map

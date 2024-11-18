@@ -5,8 +5,8 @@ export * from './divChart/DivChart';
 export * from './Cards';
 export * from './CustomTabs';
 export * from './ExpandAbleList';
-export * from './JsonLd';
+export { JsonLd } from './JsonLd';
 export * from './LinkWithTooltip';
 export * from './LoadingSpinner';
-export * from './SEO';
+export { SEO } from './SEO';
 //# sourceMappingURL=index.js.map

@@ -7,7 +7,7 @@ type Props = {
     keywords: string
     canonicalUrl?: string
 }
-const SEO: FC<Props> = ({title, description, keywords, canonicalUrl}) => {
+export const SEO: FC<Props> = ({title, description, keywords, canonicalUrl}) => {
     const fullTitle = `${title} | KatScan - KRC-20 Explorer for Kaspa`;
     return (
         <Helmet>
@@ -18,5 +18,3 @@ const SEO: FC<Props> = ({title, description, keywords, canonicalUrl}) => {
         </Helmet>
     );
 };
-
-export default SEO;

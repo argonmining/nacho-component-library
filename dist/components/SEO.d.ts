@@ -5,5 +5,5 @@ type Props = {
     keywords: string;
     canonicalUrl?: string;
 };
-declare const SEO: FC<Props>;
-export default SEO;
+export declare const SEO: FC<Props>;
+export {};
