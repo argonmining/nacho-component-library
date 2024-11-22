@@ -1,14 +1,3 @@
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 import { Button, Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import React, { Children, useState } from "react";
@@ -28,14 +17,13 @@ export const StatCard = ({ title, value, icon }) => (React.createElement(Col, { 
 export const NormalCard = ({ title, titleProps, textProps, children }) => {
     return (React.createElement(Card, null,
         React.createElement(Card.Body, null,
-            React.createElement(Card.Title, Object.assign({}, titleProps), title),
-            React.createElement(Card.Text, Object.assign({ as: 'div' }, textProps), children))));
+            React.createElement(Card.Title, { ...titleProps }, title),
+            React.createElement(Card.Text, { as: 'div', ...textProps }, children))));
 };
-export const CollapseAbleCard = (_a) => {
-    var { children } = _a, props = __rest(_a, ["children"]);
+export const CollapseAbleCard = ({ children, ...props }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const changeView = debounce(() => setIsCollapsed(current => !current), 50);
-    return React.createElement(Card, Object.assign({}, props),
+    return React.createElement(Card, { ...props },
         React.createElement(Card.Body, null,
             Children.toArray(children)[0],
             React.createElement(Button, { variant: "link", onClick: changeView, "aria-expanded": !isCollapsed, className: "mt-2 p-0" },
@@ -47,11 +35,10 @@ export const CollapseAbleCard = (_a) => {
                     : React.createElement(FaChevronUp, { className: "ml-1" })),
             !isCollapsed && Children.toArray(children)[1]));
 };
-export const ExpandableCard = (_a) => {
-    var { children } = _a, props = __rest(_a, ["children"]);
+export const ExpandableCard = ({ children, ...props }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const changeView = debounce(() => setIsExpanded(current => !current), 50);
-    return React.createElement(Card, Object.assign({}, props),
+    return React.createElement(Card, { ...props },
         React.createElement(Card.Body, null,
             Children.toArray(children)[0],
             React.createElement(Button, { variant: "link", onClick: changeView, "aria-expanded": isExpanded, className: "mt-2 p-0" },

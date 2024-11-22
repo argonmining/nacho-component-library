@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { debounce } from "lodash";
 export const ExpandAbleList = ({ isLoading, headEntries, entries, getRowData, getExpandData, props }) => {
-    return React.createElement(Table, Object.assign({}, props),
+    return React.createElement(Table, { ...props },
         React.createElement("thead", null,
             React.createElement("tr", null, headEntries.map(single => React.createElement("th", { key: single }, single)))),
         React.createElement("tbody", null,
