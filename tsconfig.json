@@ -11,10 +11,11 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "sourceMap": true,
+    "sourceRoot": "dist",
     "strict": true,
     "target": "es6"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
