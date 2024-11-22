@@ -1,6 +1,7 @@
 @import '../globals.css';
 
 .custom-tabs {
+    height: 100%;
     overflow: hidden;
 
     .custom-tabs-header {
