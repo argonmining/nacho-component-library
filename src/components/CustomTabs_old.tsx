@@ -5,7 +5,7 @@ type Props = {
     titles: string[]
 }
 
-export const CustomTabs: FC<PropsWithChildren<Props>> = (
+const CustomTabs_old: FC<PropsWithChildren<Props>> = (
     {
         titles,
         children

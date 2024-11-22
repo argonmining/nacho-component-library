@@ -1,0 +1,19 @@
+.page {
+    .page-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        color: var(--secondary-primary-color);
+    }
+    .page-content{
+        padding: 20px;
+    }
+}
+
+.dark-mode .page {
+    .page-header * {
+        color: var(--dark-primary-color);
+    }
+}
