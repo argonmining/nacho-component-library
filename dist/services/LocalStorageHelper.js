@@ -1,15 +1,14 @@
 //Function to get the local storage item
-export const getLocalStorageItem = (key) => {
+export var getLocalStorageItem = function (key) {
     if (key === null || key === undefined || localStorage.getItem(key) === null) {
         return null;
     }
     return JSON.parse(localStorage.getItem(key));
 };
 //Function to set the local storage item
-export const setLocalStorageItem = (key, value) => {
+export var setLocalStorageItem = function (key, value) {
     if (value === null || value === undefined) {
         localStorage.removeItem(key);
     }
     localStorage.setItem(key, JSON.stringify(value));
 };
-//# sourceMappingURL=LocalStorageHelper.js.map

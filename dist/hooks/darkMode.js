@@ -1,18 +1,20 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
 import { getLocalStorageItem, setLocalStorageItem } from "../services/LocalStorageHelper";
-const DarkModeContext = createContext({
+var DarkModeContext = createContext({
     isDarkMode: false,
-    toggleDarkMode: () => undefined
+    toggleDarkMode: function () { return undefined; }
 });
-export const DarkModeProvider = ({ children }) => {
-    const [isDarkMode, setIsDarkMode] = useState(getLocalStorageItem('darkMode') ?? false);
-    useEffect(() => {
+export var DarkModeProvider = function (_a) {
+    var _b;
+    var children = _a.children;
+    var _c = useState((_b = getLocalStorageItem('darkMode')) !== null && _b !== void 0 ? _b : false), isDarkMode = _c[0], setIsDarkMode = _c[1];
+    useEffect(function () {
         if (getLocalStorageItem('darkMode') === null) {
-            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
             setIsDarkMode(prefersDarkMode);
         }
     }, []);
-    useEffect(() => {
+    useEffect(function () {
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
         }
@@ -20,16 +22,15 @@ export const DarkModeProvider = ({ children }) => {
             document.body.classList.remove('dark-mode');
         }
     }, [isDarkMode]);
-    const toggleDarkMode = () => {
-        setIsDarkMode(current => {
+    var toggleDarkMode = function () {
+        setIsDarkMode(function (current) {
             setLocalStorageItem('darkMode', !current);
             return !current;
         });
     };
-    return React.createElement(DarkModeContext.Provider, { value: { isDarkMode, toggleDarkMode } }, children);
+    return React.createElement(DarkModeContext.Provider, { value: { isDarkMode: isDarkMode, toggleDarkMode: toggleDarkMode } }, children);
 };
-export const useDarkMode = () => {
-    const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
-    return { isDarkMode, toggleDarkMode };
+export var useDarkMode = function () {
+    var _a = useContext(DarkModeContext), isDarkMode = _a.isDarkMode, toggleDarkMode = _a.toggleDarkMode;
+    return { isDarkMode: isDarkMode, toggleDarkMode: toggleDarkMode };
 };
-//# sourceMappingURL=darkMode.js.map
