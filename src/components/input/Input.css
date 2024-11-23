@@ -1,0 +1,39 @@
+.custom-input {
+    .form-control {
+        height: 50px;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        height: 50px;
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+}
+
+.dark-mode .custom-input {
+    .form-control {
+        background-color: var(--dark-card-bg);
+        color: var(--dark-text-color);
+        border-color: var(--dark-border-color);
+
+        &::placeholder {
+            color: var(--dark-text-color);
+        }
+    }
+
+    .btn-primary {
+        background-color: var(--dark-primary-color);
+        border-color: var(--dark-primary-color);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--dark-secondary-color);
+        border-color: var(--dark-secondary-color);
+    }
+}
