@@ -1,0 +1,16 @@
+.icon-dropdown-button {
+    .custom-dropdown-header {
+        aspect-ratio: 1 / 1;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        box-shadow: 0 0 5px 0 black;;
+    }
+
+    .custom-dropdown-toggle svg {
+        position: relative;
+        left: 7px;
+    }
+}

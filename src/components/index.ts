@@ -1,6 +1,7 @@
 export * from './customDropdown/CustomDropdown'
 export * from './customTabs/CustomTabs'
 export * from './divChart/DivChart'
+export * from './dropdownButton/IconDropdownButton'
 export * from './expandableDiv/ExpandableDiv'
 export * from './image/Image'
 export * from './input/Input'

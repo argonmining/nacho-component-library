@@ -24,9 +24,7 @@ export var CustomDropdown = function (_a) {
     }, [containerId, showDropdown]);
     var _c = useState(null), menu = _c[0], setMenu = _c[1];
     var dRef = useRef(null);
-    var callback = useCallback(function () {
-        setShowDropdown(false);
-    }, []);
+    var callback = useCallback(function () { return setShowDropdown(false); }, []);
     useClickOutside(menu, callback, dRef.current, showDropdown);
     var styling = useMemo(function () {
         if (!showDropdown || dRef.current === null || menu === null) {
