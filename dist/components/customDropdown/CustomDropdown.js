@@ -1,25 +1,66 @@
-import React, { useRef, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import './CustomDropdown.css';
+import { useClickOutside } from "../../hooks/useClickOutside";
 export var CustomDropdown = function (_a) {
-    var _b, _c;
-    var title = _a.title, className = _a.className, children = _a.children;
-    var _d = useState(false), showLaunchTypeDropdown = _d[0], setShowLaunchTypeDropdown = _d[1];
-    var container = document.getElementById('portal-container');
-    var dRef = useRef(null);
-    if (container === null) {
+    var title = _a.title, containerId = _a.containerId, className = _a.className, children = _a.children;
+    var _b = useState(false), showDropdown = _b[0], setShowDropdown = _b[1];
+    var container = useMemo(function () {
+        if (showDropdown) {
+            return document.getElementById(containerId !== null && containerId !== void 0 ? containerId : 'portal-container');
+        }
         return null;
-    }
-    return React.createElement(Dropdown, { show: showLaunchTypeDropdown, className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : ''), ref: dRef, onToggle: function () { return setShowLaunchTypeDropdown(!showLaunchTypeDropdown); } },
-        React.createElement(Dropdown.Toggle, { as: "div", className: "dropdown-header" }, title),
-        showLaunchTypeDropdown
+    }, [containerId, showDropdown]);
+    var _c = useState(null), menu = _c[0], setMenu = _c[1];
+    var dRef = useRef(null);
+    var callback = useCallback(function () {
+        setShowDropdown(false);
+    }, []);
+    useClickOutside(menu, callback, dRef.current, showDropdown);
+    var styling = useMemo(function () {
+        if (!showDropdown || dRef.current === null || menu === null) {
+            return {
+                left: 0,
+                top: 0
+            };
+        }
+        var spacing = 5;
+        var _a = dRef.current.getBoundingClientRect(), left = _a.left, top = _a.top;
+        var buttonHeight = dRef.current.getBoundingClientRect().height;
+        var _b = menu.getBoundingClientRect(), width = _b.width, height = _b.height;
+        var display = { width: window.innerWidth, height: window.innerHeight };
+        var style = {
+            left: left,
+            top: top + buttonHeight + spacing
+        };
+        if (display.width < left + width) {
+            style.left = display.width - width - spacing;
+        }
+        if (display.height < top + height) {
+            style.top = top - height - spacing;
+        }
+        return style;
+    }, [dRef, menu, showDropdown]);
+    return React.createElement("div", { className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : ''), ref: dRef, onClick: function () { return setShowDropdown(function (current) { return !current; }); } },
+        React.createElement("div", { className: "custom-dropdown-header" }, title),
+        showDropdown && container
             ? createPortal(React.createElement("div", { style: { position: 'relative', width: 0, height: 0 } },
-                React.createElement("div", { style: {
-                        position: "absolute",
-                        left: (_b = dRef.current) === null || _b === void 0 ? void 0 : _b.clientLeft,
-                        top: (_c = dRef.current) === null || _c === void 0 ? void 0 : _c.clientTop
-                    }, className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : '') },
-                    React.createElement(Dropdown.Menu, null, children))), container)
+                React.createElement("div", { style: __assign({ position: "absolute" }, styling), className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : '') },
+                    React.createElement("div", { className: 'custom-dropdown-menu', ref: function (ref) { return setMenu(ref); } }, children))), container)
             : null);
+};
+export var CustomDropdownItem = function (_a) {
+    var onClick = _a.onClick, children = _a.children;
+    return React.createElement("div", { onClick: onClick, className: 'custom-dropdown-item' }, children);
 };

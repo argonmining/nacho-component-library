@@ -1,49 +1,101 @@
-import React, {FC, PropsWithChildren, ReactElement, useRef, useState} from "react";
-import {Dropdown} from "react-bootstrap";
+import React, {FC, PropsWithChildren, ReactElement, useCallback, useMemo, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 import './CustomDropdown.css'
+import {useClickOutside} from "../../hooks/useClickOutside";
 
 type Props = {
     title: string | ReactElement
+    containerId?: string
     className?: string
 }
+
+type Style = { left: number, top?: number }
 
 export const CustomDropdown: FC<PropsWithChildren<Props>> = (
     {
         title,
+        containerId,
         className,
         children
     }
 ) => {
-    const [showLaunchTypeDropdown, setShowLaunchTypeDropdown] = useState(false)
-    const container = document.getElementById('portal-container')
-    const dRef = useRef<HTMLDivElement | null>(null)
+    const [showDropdown, setShowDropdown] = useState(false)
 
-    if (container === null) {
+    const container = useMemo((): HTMLElement | null => {
+        if (showDropdown) {
+            return document.getElementById(containerId ?? 'portal-container')
+        }
         return null
-    }
+    }, [containerId, showDropdown])
 
-    return <Dropdown show={showLaunchTypeDropdown}
-                     className={`custom-dropdown ${className ?? ''}`}
-                     ref={dRef}
-                     onToggle={() => setShowLaunchTypeDropdown(!showLaunchTypeDropdown)}>
-        <Dropdown.Toggle as="div" className="dropdown-header">
+    const [menu, setMenu] = useState<HTMLDivElement | null>(null)
+    const dRef = useRef<HTMLDivElement | null>(null)
+    const callback = useCallback(() => setShowDropdown(false), [])
+
+    useClickOutside(menu, callback, dRef.current, showDropdown)
+
+    const styling = useMemo((): Style => {
+        if (!showDropdown || dRef.current === null || menu === null) {
+            return {
+                left: 0,
+                top: 0
+            }
+        }
+        const spacing = 5
+        const {left, top} = dRef.current.getBoundingClientRect()
+        const buttonHeight = dRef.current.getBoundingClientRect().height
+        const {width, height} = menu.getBoundingClientRect()
+        const display = {width: window.innerWidth, height: window.innerHeight}
+
+        const style: Style = {
+            left: left,
+            top: top + buttonHeight + spacing
+        }
+        if (display.width < left + width) {
+            style.left = display.width - width - spacing
+        }
+        if (display.height < top + height) {
+            style.top = top - height - spacing
+        }
+
+        return style
+    }, [dRef, menu, showDropdown])
+
+    return <div className={`custom-dropdown ${className ?? ''}`}
+                ref={dRef}
+                onClick={() => setShowDropdown(current => !current)}>
+        <div className="custom-dropdown-header">
             {title}
-        </Dropdown.Toggle>
-        {showLaunchTypeDropdown
+        </div>
+        {showDropdown && container
             ? createPortal(<div style={{position: 'relative', width: 0, height: 0}}>
                 <div style={{
                     position: "absolute",
-                    left: dRef.current?.clientLeft,
-                    top: dRef.current?.clientTop
+                    ...styling
                 }}
                      className={`custom-dropdown ${className ?? ''}`}>
-                    <Dropdown.Menu>
+                    <div className={'custom-dropdown-menu'}
+                         ref={(ref) => setMenu(ref)}>
                         {children}
-                    </Dropdown.Menu>
+                    </div>
                 </div>
             </div>, container)
             : null
         }
-    </Dropdown>
+    </div>
+}
+
+type Item = {
+    onClick?: () => void
+}
+export const CustomDropdownItem: FC<PropsWithChildren<Item>> = (
+    {
+        onClick,
+        children
+    }
+) => {
+    return <div onClick={onClick} className={'custom-dropdown-item'}>
+        {children}
+    </div>
+
 }
