@@ -16,6 +16,14 @@ export const MobileProvider: FC<PropsWithChildren> = ({children}) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    useEffect(() => {
+        if (isMobile) {
+            document.body.classList.add('mobile-view');
+        } else {
+            document.body.classList.remove('mobile-view');
+        }
+    }, [isMobile]);
+
     return <MobileContext.Provider value={{isMobile}}>
         {children}
     </MobileContext.Provider>
