@@ -23,6 +23,5 @@ export var MobileProvider = function (_a) {
     return React.createElement(MobileContext.Provider, { value: { isMobile: isMobile } }, children);
 };
 export var useMobile = function () {
-    var isMobile = useContext(MobileContext).isMobile;
-    return { isMobile: isMobile };
+    return useContext(MobileContext);
 };

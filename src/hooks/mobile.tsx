@@ -30,7 +30,5 @@ export const MobileProvider: FC<PropsWithChildren> = ({children}) => {
 }
 
 export const useMobile = (): { isMobile: boolean } => {
-    const {isMobile} = useContext(MobileContext)
-
-    return {isMobile}
+    return useContext(MobileContext)
 }
