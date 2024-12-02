@@ -4,13 +4,15 @@ import './Page.css'
 
 type Props = {
     header: string
-    additionalHeaderInfo?: ReactElement
+    additionalHeaderInfo?: string
+    additionalHeaderComponent?: ReactElement
 }
 
 export const Page: FC<PropsWithChildren<Props>> = (
     {
         header,
         additionalHeaderInfo,
+        additionalHeaderComponent,
         children
     }
 ) => {
@@ -20,7 +22,8 @@ export const Page: FC<PropsWithChildren<Props>> = (
     return <div style={{width: '100%', height: '100%'}} className={'page'}>
         <div ref={ref} className={'page-header'}>
             <h1>{header}</h1>
-            {additionalHeaderInfo}
+            {additionalHeaderInfo && <span>{additionalHeaderInfo}</span>}
+            {additionalHeaderComponent}
         </div>
         <div className={'page-content'} style={styling}>
             {children}
