@@ -78,7 +78,7 @@ export var List = function (_a) {
             React.createElement(LoadingSpinner, null)) : null,
         React.createElement("div", { className: 'page-control' },
             React.createElement("div", { className: 'page-entry-amount-select' }, entryAmounts.map(function (single) {
-                return React.createElement("div", { className: 'amount-select', key: single, onClick: function () { return setEntryAmount(single); } }, single);
+                return React.createElement("div", { className: "amount-select ".concat(entryAmount === single ? 'active' : ''), key: single, onClick: function () { return setEntryAmount(single); } }, single);
             })),
             React.createElement("div", { className: 'list-paging' },
                 currentIndex != 0 &&

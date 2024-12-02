@@ -70,6 +70,9 @@
                 padding: 0 5px;
                 color: white;
             }
+            .active {
+                color: black
+            }
 
             .amount-select:hover {
                 cursor: pointer;
@@ -103,7 +106,6 @@
                 .custom-dropdown-header {
                     padding: 0 10px;
                     border-radius: 5px;
-                    border: 1px solid var(--dark-border-color);
                 }
             }
         }
@@ -168,6 +170,9 @@
             background-color: var(--dark-header-bg);
             color: var(--dark-text-color);
             border-bottom-color: var(--dark-border-color);
+        }
+        .active {
+            color: var(--primary-color);
         }
     }
 }

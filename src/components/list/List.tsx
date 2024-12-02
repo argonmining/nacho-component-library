@@ -125,7 +125,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
         <div className={'page-control'}>
             <div className={'page-entry-amount-select'}>
                 {entryAmounts.map(single =>
-                    <div className={'amount-select'}
+                    <div className={`amount-select ${entryAmount === single ? 'active' : ''}`}
                          key={single}
                          onClick={() => setEntryAmount(single)}>
                         {single}
