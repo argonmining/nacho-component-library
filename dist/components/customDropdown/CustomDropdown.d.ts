@@ -4,6 +4,8 @@ type Props = {
     title: string | ReactElement;
     containerId?: string;
     className?: string;
+    offsetX?: number;
+    offsetY?: number;
 };
 export declare const CustomDropdown: FC<PropsWithChildren<Props>>;
 type Item = {

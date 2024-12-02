@@ -7,15 +7,19 @@ type Props = {
     title: string | ReactElement
     containerId?: string
     className?: string
+    offsetX?: number
+    offsetY?: number
 }
 
-type Style = { left: number, top?: number }
+type Style = { left: number, top: number }
 
 export const CustomDropdown: FC<PropsWithChildren<Props>> = (
     {
         title,
         containerId,
         className,
+        offsetY = 0,
+        offsetX = 0,
         children
     }
 ) => {
@@ -57,9 +61,12 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
         if (display.height < top + height) {
             style.top = top - height - spacing
         }
-
+        if (offsetX !== 0 || offsetY !== 0) {
+            style.top = style.top + offsetY
+            style.left = style.left + offsetX
+        }
         return style
-    }, [dRef, menu, showDropdown])
+    }, [dRef, menu, showDropdown, offsetY, offsetX])
 
     return <div className={`custom-dropdown ${className ?? ''}`}
                 ref={dRef}

@@ -14,15 +14,15 @@ import { createPortal } from "react-dom";
 import './CustomDropdown.css';
 import { useClickOutside } from "../../hooks/useClickOutside";
 export var CustomDropdown = function (_a) {
-    var title = _a.title, containerId = _a.containerId, className = _a.className, children = _a.children;
-    var _b = useState(false), showDropdown = _b[0], setShowDropdown = _b[1];
+    var title = _a.title, containerId = _a.containerId, className = _a.className, _b = _a.offsetY, offsetY = _b === void 0 ? 0 : _b, _c = _a.offsetX, offsetX = _c === void 0 ? 0 : _c, children = _a.children;
+    var _d = useState(false), showDropdown = _d[0], setShowDropdown = _d[1];
     var container = useMemo(function () {
         if (showDropdown) {
             return document.getElementById(containerId !== null && containerId !== void 0 ? containerId : 'portal-container');
         }
         return null;
     }, [containerId, showDropdown]);
-    var _c = useState(null), menu = _c[0], setMenu = _c[1];
+    var _e = useState(null), menu = _e[0], setMenu = _e[1];
     var dRef = useRef(null);
     var callback = useCallback(function () { return setShowDropdown(false); }, []);
     useClickOutside(menu, callback, dRef.current, showDropdown);
@@ -48,8 +48,12 @@ export var CustomDropdown = function (_a) {
         if (display.height < top + height) {
             style.top = top - height - spacing;
         }
+        if (offsetX !== 0 || offsetY !== 0) {
+            style.top = style.top + offsetY;
+            style.left = style.left + offsetX;
+        }
         return style;
-    }, [dRef, menu, showDropdown]);
+    }, [dRef, menu, showDropdown, offsetY, offsetX]);
     return React.createElement("div", { className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : ''), ref: dRef, onClick: function () { return setShowDropdown(function (current) { return !current; }); } },
         React.createElement("div", { className: "custom-dropdown-header" }, title),
         showDropdown && container
