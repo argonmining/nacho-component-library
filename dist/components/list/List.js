@@ -1,16 +1,24 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import './List.css';
 import { LoadingSpinner } from "../LoadingSpinner";
-var puffer = 10;
+import { CustomDropdown, CustomDropdownItem } from "../customDropdown/CustomDropdown";
+var entryAmounts = [25, 50, 100, 150, 200];
 export var List = function (_a) {
-    var _b, _c, _d, _e;
+    var _b, _c;
     var headerElements = _a.headerElements, getHeader = _a.getHeader, items = _a.items, itemHeight = _a.itemHeight, gridTemplate = _a.gridTemplate, getRow = _a.getRow, getElement = _a.getElement, isLoading = _a.isLoading, cssGrid = _a.cssGrid;
     var containerRef = useRef(null);
     var headerRef = useRef(null);
-    var _f = useState(0), scrollTop = _f[0], setScrollTop = _f[1];
-    var startIndex = Math.max(Math.floor(scrollTop / itemHeight) - puffer, 0);
-    var endIndex = Math.min(startIndex + Math.ceil((scrollTop + ((_c = (_b = containerRef === null || containerRef === void 0 ? void 0 : containerRef.current) === null || _b === void 0 ? void 0 : _b.clientHeight) !== null && _c !== void 0 ? _c : 200)) / itemHeight) + puffer, items.length - 1);
-    var visibleItems = items.slice(startIndex, endIndex + 1);
+    var _d = useState(0), currentIndex = _d[0], setCurrentIndex = _d[1];
+    var _e = useState(100), entryAmount = _e[0], setEntryAmount = _e[1];
+    var indexArray = useMemo(function () {
+        var arr = [];
+        for (var i = 0; i < Math.ceil(items.length / entryAmount); i++) {
+            arr.push(i);
+        }
+        return arr;
+    }, [entryAmount, items.length]);
+    var visibleItems = useMemo(function () { return items.slice(currentIndex * entryAmount, (currentIndex + 1) * entryAmount); }, [currentIndex, entryAmount, items]);
     var gridTemplateInternal = useMemo(function () {
         if (cssGrid) {
             return;
@@ -21,18 +29,21 @@ export var List = function (_a) {
         return headerElements.map(function () { return '1fr'; }).join(" ");
     }, [cssGrid, gridTemplate, headerElements]);
     var handleScroll = function (e) {
-        var _a, _b, _c, _d, _e;
-        if (((_a = e.currentTarget) === null || _a === void 0 ? void 0 : _a.scrollTop) !== undefined && ((_b = e.currentTarget) === null || _b === void 0 ? void 0 : _b.scrollTop) !== 0) {
-            setScrollTop(e.currentTarget.scrollTop);
+        var _a, _b;
+        if (!headerRef.current) {
+            return;
         }
-        if (((_c = e.currentTarget) === null || _c === void 0 ? void 0 : _c.scrollLeft) !== undefined && ((_d = e.currentTarget) === null || _d === void 0 ? void 0 : _d.scrollLeft) !== 0) {
-            (_e = headerRef.current) === null || _e === void 0 ? void 0 : _e.scrollTo(e.currentTarget.scrollLeft, 0);
+        if (((_a = e.currentTarget) === null || _a === void 0 ? void 0 : _a.scrollLeft) !== undefined && ((_b = e.currentTarget) === null || _b === void 0 ? void 0 : _b.scrollLeft) !== 0) {
+            headerRef.current.scrollLeft = e.currentTarget.scrollLeft;
         }
     };
     var handleScrollHeader = function (e) {
-        var _a, _b, _c;
+        var _a, _b;
+        if (!containerRef.current) {
+            return;
+        }
         if (((_a = e.currentTarget) === null || _a === void 0 ? void 0 : _a.scrollLeft) !== undefined && ((_b = e.currentTarget) === null || _b === void 0 ? void 0 : _b.scrollLeft) !== 0) {
-            (_c = containerRef.current) === null || _c === void 0 ? void 0 : _c.scrollTo(e.currentTarget.scrollLeft, scrollTop);
+            containerRef.current.scrollLeft = e.currentTarget.scrollLeft;
         }
     };
     var getHeaderInternal = useCallback(function (value) {
@@ -49,8 +60,7 @@ export var List = function (_a) {
                 display: 'grid',
                 gridTemplateColumns: gridTemplateInternal,
                 height: itemHeight,
-                position: "absolute",
-                top: (startIndex + index) * itemHeight + index,
+                margin: '1px 0',
                 left: 0,
                 right: 0,
             } }, headerElements.map(function (single) { return getElement
@@ -60,10 +70,24 @@ export var List = function (_a) {
     return React.createElement("div", { className: 'list' },
         React.createElement("div", { ref: headerRef, onScroll: handleScrollHeader, className: 'list-header', style: { gridTemplateColumns: gridTemplateInternal } }, headerElements.map(getHeaderInternal)),
         React.createElement("div", { onScroll: handleScroll, className: 'list-body', ref: containerRef, style: {
-                height: "calc(100% - ".concat(((_e = (_d = headerRef === null || headerRef === void 0 ? void 0 : headerRef.current) === null || _d === void 0 ? void 0 : _d.clientHeight) !== null && _e !== void 0 ? _e : 200) + (isLoading ? itemHeight : 0), "px)")
+                height: "calc(100% - ".concat(((_c = (_b = headerRef === null || headerRef === void 0 ? void 0 : headerRef.current) === null || _b === void 0 ? void 0 : _b.clientHeight) !== null && _c !== void 0 ? _c : 200) + (isLoading ? itemHeight : 0) + 40, "px)")
             } },
             visibleItems.map(function (single, index) { return Row(index, single); }),
             visibleItems.length === 0 && !isLoading && (React.createElement("span", { className: "text-center" }, 'No tokens to display'))),
         isLoading ? React.createElement("div", { style: { height: itemHeight } },
-            React.createElement(LoadingSpinner, null)) : null);
+            React.createElement(LoadingSpinner, null)) : null,
+        React.createElement("div", { className: 'page-control' },
+            React.createElement("div", { className: 'page-entry-amount-select' }, entryAmounts.map(function (single) {
+                return React.createElement("div", { className: 'amount-select', key: single, onClick: function () { return setEntryAmount(single); } }, single);
+            })),
+            React.createElement("div", { className: 'list-paging' },
+                currentIndex != 0 &&
+                    React.createElement("div", { className: 'icon-wrapper', onClick: function () { return setCurrentIndex(function (current) { return current - 1; }); } },
+                        React.createElement(FaChevronLeft, { size: 15 })),
+                React.createElement(CustomDropdown, { title: String(currentIndex + 1), offsetX: -10, className: 'list-paging-menu' }, indexArray.map(function (single) {
+                    return React.createElement(CustomDropdownItem, { key: single, onClick: function () { return setCurrentIndex(single); } }, single + 1);
+                })),
+                (currentIndex + 1) * entryAmount <= items.length &&
+                    React.createElement("div", { className: 'icon-wrapper', onClick: function () { return setCurrentIndex(function (current) { return current + 1; }); } },
+                        React.createElement(FaChevronRight, { size: 15 })))));
 };

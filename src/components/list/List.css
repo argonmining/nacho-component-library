@@ -51,6 +51,76 @@
             }
         }
     }
+
+    .page-control {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .page-entry-amount-select {
+            display: flex;
+            flex-direction: row;
+            margin: 10px 0 0 10px;
+
+            .amount-select {
+                background-color: var(--primary-color);
+                border-radius: 5px;
+                margin-right: 5px;
+                padding: 0 5px;
+                color: white;
+            }
+
+            .amount-select:hover {
+                cursor: pointer;
+            }
+        }
+
+        .list-paging {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 10px 10px 0 0;
+            border-radius: 5px;
+
+            .icon-wrapper {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 5px;
+
+                & svg {
+                    /*height: 100%*/
+                }
+
+                & svg:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .custom-dropdown {
+                .custom-dropdown-header {
+                    padding: 0 10px;
+                    border-radius: 5px;
+                    border: 1px solid var(--dark-border-color);
+                }
+            }
+        }
+    }
+}
+
+.list-paging-menu {
+
+    .custom-dropdown-menu {
+        max-height: 300px;
+        overflow: auto;
+
+        .custom-dropdown-item {
+            min-width: 65px;
+            text-align: center;
+        }
+    }
 }
 
 .dark-mode .list {
@@ -77,4 +147,27 @@
         }
     }
 
+    .page-control {
+
+        .list-paging {
+            background-color: var(--dark-header-bg);
+            color: var(--dark-text-color);
+            border-bottom-color: var(--dark-border-color);
+
+            .custom-dropdown {
+                .custom-dropdown-header {
+                    border: 1px solid var(--dark-border-color);
+                }
+            }
+
+        }
+    }
+
+    .page-entry-amount-select {
+        .amount-select {
+            background-color: var(--dark-header-bg);
+            color: var(--dark-text-color);
+            border-bottom-color: var(--dark-border-color);
+        }
+    }
 }

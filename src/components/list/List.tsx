@@ -1,6 +1,8 @@
 import React, {ReactElement, UIEvent, useCallback, useMemo, useRef, useState} from "react";
+import {FaChevronLeft, FaChevronRight} from "react-icons/fa6";
 import './List.css'
 import {LoadingSpinner} from "../LoadingSpinner";
+import {CustomDropdown, CustomDropdownItem} from "../customDropdown/CustomDropdown";
 
 type Props<T> = {
     headerElements: string[]
@@ -13,7 +15,7 @@ type Props<T> = {
     isLoading?: boolean
     cssGrid?: boolean
 }
-const puffer = 10
+const entryAmounts = [25, 50, 100, 150, 200]
 export const List = <T extends Record<string, unknown> & { id: string }>(
     {
         headerElements,
@@ -30,18 +32,18 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
 
     const containerRef = useRef<HTMLDivElement | null>(null)
     const headerRef = useRef<HTMLDivElement | null>(null)
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
+    const [entryAmount, setEntryAmount] = useState<number>(100)
 
-    const [scrollTop, setScrollTop] = useState(0);
+    const indexArray = useMemo((): number[] => {
+        const arr: number[] = []
+        for (let i = 0; i < Math.ceil(items.length / entryAmount); i++) {
+            arr.push(i)
+        }
+        return arr
+    }, [entryAmount, items.length])
 
-    const startIndex = Math.max(
-        Math.floor(scrollTop / itemHeight) - puffer, 0);
-
-    const endIndex = Math.min(
-        startIndex + Math.ceil((scrollTop + (containerRef?.current?.clientHeight ?? 200)) / itemHeight) + puffer,
-        items.length - 1
-    )
-
-    const visibleItems = items.slice(startIndex, endIndex + 1);
+    const visibleItems = useMemo(() => items.slice(currentIndex * entryAmount, (currentIndex + 1) * entryAmount), [currentIndex, entryAmount, items])
 
     const gridTemplateInternal = useMemo(() => {
         if (cssGrid) {
@@ -55,16 +57,19 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
     }, [cssGrid, gridTemplate, headerElements])
 
     const handleScroll = (e: UIEvent<HTMLDivElement>): void => {
-        if (e.currentTarget?.scrollTop !== undefined && e.currentTarget?.scrollTop !== 0) {
-            setScrollTop(e.currentTarget.scrollTop)
+        if (!headerRef.current) {
+            return
         }
         if (e.currentTarget?.scrollLeft !== undefined && e.currentTarget?.scrollLeft !== 0) {
-            headerRef.current?.scrollTo(e.currentTarget.scrollLeft, 0)
+            headerRef.current.scrollLeft = e.currentTarget.scrollLeft
         }
     }
     const handleScrollHeader = (e: UIEvent<HTMLDivElement>): void => {
+        if (!containerRef.current) {
+            return
+        }
         if (e.currentTarget?.scrollLeft !== undefined && e.currentTarget?.scrollLeft !== 0) {
-            containerRef.current?.scrollTo(e.currentTarget.scrollLeft, scrollTop)
+            containerRef.current.scrollLeft = e.currentTarget.scrollLeft
         }
     }
 
@@ -85,8 +90,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
                         display: 'grid',
                         gridTemplateColumns: gridTemplateInternal,
                         height: itemHeight,
-                        position: "absolute",
-                        top: (startIndex + index) * itemHeight + index,
+                        margin: '1px 0',
                         left: 0,
                         right: 0,
                     }}>
@@ -107,7 +111,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
              className={'list-body'}
              ref={containerRef}
              style={{
-                 height: `calc(100% - ${(headerRef?.current?.clientHeight ?? 200) + (isLoading ? itemHeight : 0)}px)`
+                 height: `calc(100% - ${(headerRef?.current?.clientHeight ?? 200) + (isLoading ? itemHeight : 0) + 40}px)`
              }}>
 
             {visibleItems.map((single, index) => Row(index, single))}
@@ -118,5 +122,38 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
             )}
         </div>
         {isLoading ? <div style={{height: itemHeight}}><LoadingSpinner/></div> : null}
+        <div className={'page-control'}>
+            <div className={'page-entry-amount-select'}>
+                {entryAmounts.map(single =>
+                    <div className={'amount-select'}
+                         key={single}
+                         onClick={() => setEntryAmount(single)}>
+                        {single}
+                    </div>)
+                }
+            </div>
+            <div className={'list-paging'}>
+                {currentIndex != 0 &&
+                    <div className={'icon-wrapper'} onClick={() => setCurrentIndex(current => current - 1)}>
+                        <FaChevronLeft size={15}/>
+                    </div>
+                }
+                <CustomDropdown title={String(currentIndex + 1)}
+                                offsetX={-10}
+                                className={'list-paging-menu'}>
+                    {indexArray.map((single) =>
+                        <CustomDropdownItem key={single}
+                                            onClick={() => setCurrentIndex(single)}>
+                            {single + 1}
+                        </CustomDropdownItem>
+                    )}
+                </CustomDropdown>
+                {(currentIndex + 1) * entryAmount <= items.length &&
+                    <div className={'icon-wrapper'} onClick={() => setCurrentIndex(current => current + 1)}>
+                        <FaChevronRight size={15}/>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 }
