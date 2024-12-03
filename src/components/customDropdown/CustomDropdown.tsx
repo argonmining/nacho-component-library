@@ -1,4 +1,14 @@
-import React, {FC, PropsWithChildren, ReactElement, useCallback, useMemo, useRef, useState} from "react";
+import React, {
+    FC, ForwardedRef,
+    forwardRef,
+    PropsWithChildren,
+    ReactElement,
+    useCallback,
+    useImperativeHandle,
+    useMemo,
+    useRef,
+    useState
+} from "react";
 import {createPortal} from "react-dom";
 import './CustomDropdown.css'
 import {useClickOutside} from "../../hooks/useClickOutside";
@@ -15,7 +25,11 @@ type Props = {
 
 type Style = { left: number, top: number }
 
-export const CustomDropdown: FC<PropsWithChildren<Props>> = (
+export type DropdownRef = {
+    close: () => void
+}
+
+export const CustomDropdown = forwardRef((
     {
         title,
         containerId,
@@ -25,7 +39,7 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
         alwaysUp = false,
         stayOpen = false,
         children
-    }
+    }: PropsWithChildren<Props>, ref: ForwardedRef<DropdownRef>
 ) => {
     const [showDropdown, setShowDropdown] = useState(false)
 
@@ -72,6 +86,10 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
         return style
     }, [dRef, menu, showDropdown, offsetY, offsetX])
 
+    useImperativeHandle(ref, () => ({
+        close: () => setShowDropdown(false)
+    }), [])
+
     return <div className={`custom-dropdown ${className ?? ''}`}
                 ref={dRef}
                 onClick={stayOpen ? () => setShowDropdown(true) : () => setShowDropdown(current => !current)}>
@@ -94,7 +112,7 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
             : null
         }
     </div>
-}
+})
 
 type Item = {
     onClick?: () => void

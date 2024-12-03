@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactElement } from "react";
+import React, { FC, PropsWithChildren, ReactElement } from "react";
 import './CustomDropdown.css';
 type Props = {
     title: string | ReactElement;
@@ -9,7 +9,12 @@ type Props = {
     alwaysUp?: boolean;
     stayOpen?: boolean;
 };
-export declare const CustomDropdown: FC<PropsWithChildren<Props>>;
+export type DropdownRef = {
+    close: () => void;
+};
+export declare const CustomDropdown: React.ForwardRefExoticComponent<Props & {
+    children?: React.ReactNode | undefined;
+} & React.RefAttributes<DropdownRef>>;
 type Item = {
     onClick?: () => void;
 };
