@@ -9,23 +9,29 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from "react";
+import React, { Children, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import './CustomDropdown.css';
 import { useClickOutside } from "../../hooks/useClickOutside";
-export var CustomDropdown = forwardRef(function (_a, ref) {
-    var title = _a.title, containerId = _a.containerId, className = _a.className, _b = _a.offsetY, offsetY = _b === void 0 ? 0 : _b, _c = _a.offsetX, offsetX = _c === void 0 ? 0 : _c, _d = _a.alwaysUp, alwaysUp = _d === void 0 ? false : _d, _e = _a.stayOpen, stayOpen = _e === void 0 ? false : _e, children = _a.children;
-    var _f = useState(false), showDropdown = _f[0], setShowDropdown = _f[1];
+import './CustomDropdown.css';
+export var CustomDropdown = forwardRef(function CustomDropdown(_a, ref) {
+    var _b;
+    var title = _a.title, containerId = _a.containerId, className = _a.className, _c = _a.offsetY, offsetY = _c === void 0 ? 0 : _c, _d = _a.offsetX, offsetX = _d === void 0 ? 0 : _d, _e = _a.alwaysUp, alwaysUp = _e === void 0 ? false : _e, _f = _a.stayOpen, stayOpen = _f === void 0 ? false : _f, fitHeader = _a.fitHeader, onOpen = _a.onOpen, children = _a.children;
+    var _g = useState(false), showDropdown = _g[0], setShowDropdown = _g[1];
     var container = useMemo(function () {
         if (showDropdown) {
             return document.getElementById(containerId !== null && containerId !== void 0 ? containerId : 'portal-container');
         }
         return null;
     }, [containerId, showDropdown]);
-    var _g = useState(null), menu = _g[0], setMenu = _g[1];
+    var _h = useState(null), menu = _h[0], setMenu = _h[1];
     var dRef = useRef(null);
     var callback = useCallback(function () { return setShowDropdown(false); }, []);
     useClickOutside(menu, callback, dRef.current, showDropdown);
+    useEffect(function () {
+        if (showDropdown && onOpen) {
+            onOpen();
+        }
+    }, [onOpen, showDropdown]);
     var styling = useMemo(function () {
         if (!showDropdown || dRef.current === null || menu === null) {
             return {
@@ -53,16 +59,18 @@ export var CustomDropdown = forwardRef(function (_a, ref) {
             style.left = style.left + offsetX;
         }
         return style;
-    }, [dRef, menu, showDropdown, offsetY, offsetX]);
+    }, [showDropdown, menu, alwaysUp, offsetX, offsetY]);
     useImperativeHandle(ref, function () { return ({
-        close: function () { return setShowDropdown(false); }
+        close: function () {
+            setShowDropdown(false);
+        }
     }); }, []);
     return React.createElement("div", { className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : ''), ref: dRef, onClick: stayOpen ? function () { return setShowDropdown(true); } : function () { return setShowDropdown(function (current) { return !current; }); } },
         React.createElement("div", { className: "custom-dropdown-header" }, title),
-        showDropdown && container
+        showDropdown && container && Children.count(children) !== 0
             ? createPortal(React.createElement("div", { style: { position: 'relative', width: 0, height: 0 } },
                 React.createElement("div", { style: __assign({ position: "absolute" }, styling), className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : '') },
-                    React.createElement("div", { className: 'custom-dropdown-menu', ref: function (ref) { return setMenu(ref); } }, children))), container)
+                    React.createElement("div", { className: 'custom-dropdown-menu', style: { width: fitHeader ? "".concat((_b = dRef.current) === null || _b === void 0 ? void 0 : _b.clientWidth, "px") : undefined }, ref: function (ref) { return setMenu(ref); } }, children))), container)
             : null);
 });
 export var CustomDropdownItem = function (_a) {
