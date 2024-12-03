@@ -10,6 +10,7 @@ type Props = {
     offsetX?: number
     offsetY?: number
     alwaysUp?: boolean
+    stayOpen?: boolean
 }
 
 type Style = { left: number, top: number }
@@ -22,6 +23,7 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
         offsetY = 0,
         offsetX = 0,
         alwaysUp = false,
+        stayOpen = false,
         children
     }
 ) => {
@@ -72,7 +74,7 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
 
     return <div className={`custom-dropdown ${className ?? ''}`}
                 ref={dRef}
-                onClick={() => setShowDropdown(current => !current)}>
+                onClick={stayOpen ? () => setShowDropdown(true) : () => setShowDropdown(current => !current)}>
         <div className="custom-dropdown-header">
             {title}
         </div>

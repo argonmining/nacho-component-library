@@ -7,6 +7,7 @@ type Props = {
     offsetX?: number;
     offsetY?: number;
     alwaysUp?: boolean;
+    stayOpen?: boolean;
 };
 export declare const CustomDropdown: FC<PropsWithChildren<Props>>;
 type Item = {
