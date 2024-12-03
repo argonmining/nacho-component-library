@@ -67,6 +67,10 @@ export var List = function (_a) {
             ? React.createElement("div", { key: "".concat(single), style: { height: itemHeight }, className: "list-column ".concat(single) }, getElement(single, item))
             : React.createElement("div", { key: "".concat(single), style: { height: itemHeight }, className: "list-column ".concat(single) }, item[single]); }));
     };
+    var changeEntryAmount = function (amount) {
+        setCurrentIndex(0);
+        setEntryAmount(amount);
+    };
     return React.createElement("div", { className: 'list' },
         React.createElement("div", { ref: headerRef, onScroll: handleScrollHeader, className: 'list-header', style: { gridTemplateColumns: gridTemplateInternal } }, headerElements.map(getHeaderInternal)),
         React.createElement("div", { onScroll: handleScroll, className: 'list-body', ref: containerRef, style: {
@@ -78,7 +82,7 @@ export var List = function (_a) {
             React.createElement(LoadingSpinner, null)) : null,
         React.createElement("div", { className: 'page-control' },
             React.createElement("div", { className: 'page-entry-amount-select' }, entryAmounts.map(function (single) {
-                return React.createElement("div", { className: "amount-select ".concat(entryAmount === single ? 'active' : ''), key: single, onClick: function () { return setEntryAmount(single); } }, single);
+                return React.createElement("div", { className: "amount-select ".concat(entryAmount === single ? 'active' : ''), key: single, onClick: function () { return changeEntryAmount(single); } }, single);
             })),
             React.createElement("div", { className: 'list-paging' },
                 currentIndex != 0 &&

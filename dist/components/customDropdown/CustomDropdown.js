@@ -14,15 +14,15 @@ import { createPortal } from "react-dom";
 import './CustomDropdown.css';
 import { useClickOutside } from "../../hooks/useClickOutside";
 export var CustomDropdown = function (_a) {
-    var title = _a.title, containerId = _a.containerId, className = _a.className, _b = _a.offsetY, offsetY = _b === void 0 ? 0 : _b, _c = _a.offsetX, offsetX = _c === void 0 ? 0 : _c, children = _a.children;
-    var _d = useState(false), showDropdown = _d[0], setShowDropdown = _d[1];
+    var title = _a.title, containerId = _a.containerId, className = _a.className, _b = _a.offsetY, offsetY = _b === void 0 ? 0 : _b, _c = _a.offsetX, offsetX = _c === void 0 ? 0 : _c, _d = _a.alwaysUp, alwaysUp = _d === void 0 ? false : _d, children = _a.children;
+    var _e = useState(false), showDropdown = _e[0], setShowDropdown = _e[1];
     var container = useMemo(function () {
         if (showDropdown) {
             return document.getElementById(containerId !== null && containerId !== void 0 ? containerId : 'portal-container');
         }
         return null;
     }, [containerId, showDropdown]);
-    var _e = useState(null), menu = _e[0], setMenu = _e[1];
+    var _f = useState(null), menu = _f[0], setMenu = _f[1];
     var dRef = useRef(null);
     var callback = useCallback(function () { return setShowDropdown(false); }, []);
     useClickOutside(menu, callback, dRef.current, showDropdown);
@@ -45,7 +45,7 @@ export var CustomDropdown = function (_a) {
         if (display.width < left + width) {
             style.left = display.width - width - spacing;
         }
-        if (display.height < top + height) {
+        if (display.height < top + height || alwaysUp) {
             style.top = top - height - spacing;
         }
         if (offsetX !== 0 || offsetY !== 0) {

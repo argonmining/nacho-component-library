@@ -9,6 +9,7 @@ type Props = {
     className?: string
     offsetX?: number
     offsetY?: number
+    alwaysUp?: boolean
 }
 
 type Style = { left: number, top: number }
@@ -20,6 +21,7 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
         className,
         offsetY = 0,
         offsetX = 0,
+        alwaysUp = false,
         children
     }
 ) => {
@@ -58,7 +60,7 @@ export const CustomDropdown: FC<PropsWithChildren<Props>> = (
         if (display.width < left + width) {
             style.left = display.width - width - spacing
         }
-        if (display.height < top + height) {
+        if (display.height < top + height || alwaysUp) {
             style.top = top - height - spacing
         }
         if (offsetX !== 0 || offsetY !== 0) {

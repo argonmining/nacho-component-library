@@ -6,6 +6,7 @@ type Props = {
     className?: string;
     offsetX?: number;
     offsetY?: number;
+    alwaysUp?: boolean;
 };
 export declare const CustomDropdown: FC<PropsWithChildren<Props>>;
 type Item = {

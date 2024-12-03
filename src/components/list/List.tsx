@@ -102,6 +102,11 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
         </div>
     }
 
+    const changeEntryAmount = (amount: number): void => {
+        setCurrentIndex(0)
+        setEntryAmount(amount)
+    }
+
     return <div className={'list'}>
         <div ref={headerRef} onScroll={handleScrollHeader} className={'list-header'}
              style={{gridTemplateColumns: gridTemplateInternal}}>
@@ -127,7 +132,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
                 {entryAmounts.map(single =>
                     <div className={`amount-select ${entryAmount === single ? 'active' : ''}`}
                          key={single}
-                         onClick={() => setEntryAmount(single)}>
+                         onClick={() => changeEntryAmount(single)}>
                         {single}
                     </div>)
                 }
