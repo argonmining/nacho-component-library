@@ -29,7 +29,7 @@ export type DropdownRef = {
     close: () => void
 }
 
-export const CustomDropdown = forwardRef((
+export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>((
     {
         title,
         containerId,
@@ -39,7 +39,7 @@ export const CustomDropdown = forwardRef((
         alwaysUp = false,
         stayOpen = false,
         children
-    }: PropsWithChildren<Props>, ref: ForwardedRef<DropdownRef>
+    }, ref
 ) => {
     const [showDropdown, setShowDropdown] = useState(false)
 
