@@ -88,7 +88,7 @@ export var List = function (_a) {
                 currentIndex != 0 &&
                     React.createElement("div", { className: 'icon-wrapper', onClick: function () { return setCurrentIndex(function (current) { return current - 1; }); } },
                         React.createElement(FaChevronLeft, { size: 15 })),
-                React.createElement(CustomDropdown, { title: String(currentIndex + 1), offsetX: -10, className: 'list-paging-menu' }, indexArray.map(function (single) {
+                React.createElement(CustomDropdown, { title: String(currentIndex + 1), offsetX: -10, alwaysUp: true, className: 'list-paging-menu' }, indexArray.map(function (single) {
                     return React.createElement(CustomDropdownItem, { key: single, onClick: function () { return setCurrentIndex(single); } }, single + 1);
                 })),
                 (currentIndex + 1) * entryAmount <= items.length &&

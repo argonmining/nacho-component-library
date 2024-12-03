@@ -145,6 +145,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
                 }
                 <CustomDropdown title={String(currentIndex + 1)}
                                 offsetX={-10}
+                                alwaysUp={true}
                                 className={'list-paging-menu'}>
                     {indexArray.map((single) =>
                         <CustomDropdownItem key={single}
