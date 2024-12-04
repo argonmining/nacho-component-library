@@ -23,12 +23,13 @@
         .custom-dropdown-menu {
             background-color: var(--sidebar-bg);
         }
+
         .custom-dropdown-item {
             color: var(--secondary-primary-color);
         }
     }
 
-    & .theme-header {
+    &.theme-header {
         .custom-dropdown-header {
             background-color: var(--primary-color);
             color: white;
