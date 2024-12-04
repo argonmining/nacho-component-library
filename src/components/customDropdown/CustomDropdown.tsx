@@ -18,7 +18,7 @@ import './CustomDropdown.css'
 
 type Props = {
     title: string | ReactElement
-    menuTheme?: 'header' | 'normal'
+    theme?: 'header' | 'normal'
     containerId?: string
     className?: string
     offsetX?: number
@@ -39,7 +39,7 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
     function CustomDropdown(
         {
             title,
-            menuTheme = 'normal',
+            theme = 'normal',
             containerId,
             className,
             offsetY = 0,
@@ -108,7 +108,7 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
             }
         }), [])
 
-        return <div className={`custom-dropdown ${className ?? ''}`}
+        return <div className={`custom-dropdown theme-${theme} ${className ?? ''}`}
                     ref={dRef}
                     onClick={stayOpen ? () => setShowDropdown(true) : () => setShowDropdown(current => !current)}>
             <div className="custom-dropdown-header">
@@ -120,7 +120,7 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
                         position: "absolute",
                         ...styling
                     }}
-                         className={`custom-dropdown theme-${menuTheme} ${className ?? ''}`}>
+                         className={`custom-dropdown theme-${theme} ${className ?? ''}`}>
                         <div className={'custom-dropdown-menu'}
                              style={{width: fitHeader ? `${dRef.current?.clientWidth}px` : undefined}}
                              ref={(ref) => setMenu(ref)}>

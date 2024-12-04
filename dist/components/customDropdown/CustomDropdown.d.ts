@@ -2,7 +2,7 @@ import React, { FC, MouseEvent, PropsWithChildren, ReactElement } from "react";
 import './CustomDropdown.css';
 type Props = {
     title: string | ReactElement;
-    menuTheme?: 'header' | 'normal';
+    theme?: 'header' | 'normal';
     containerId?: string;
     className?: string;
     offsetX?: number;

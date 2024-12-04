@@ -5,18 +5,18 @@ import './DropdownButton.css'
 
 type Props = {
     title?: ReactElement
-    menuTheme?: 'header' | 'normal'
+    theme?: 'header' | 'normal'
 }
 export const IconDropdownButton: FC<PropsWithChildren<Props>> = (
     {
         title,
-        menuTheme,
+        theme,
         children
     }
 ) => {
     return <CustomDropdown className={"icon-dropdown-button"}
                            title={title ?? <></>}
-                           menuTheme={menuTheme}>
+                           theme={theme}>
         {children}
     </CustomDropdown>
 }

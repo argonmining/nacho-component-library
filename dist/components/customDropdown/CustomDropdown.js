@@ -15,7 +15,7 @@ import { useClickOutside } from "../../hooks";
 import './CustomDropdown.css';
 export var CustomDropdown = forwardRef(function CustomDropdown(_a, ref) {
     var _b;
-    var title = _a.title, _c = _a.menuTheme, menuTheme = _c === void 0 ? 'normal' : _c, containerId = _a.containerId, className = _a.className, _d = _a.offsetY, offsetY = _d === void 0 ? 0 : _d, _e = _a.offsetX, offsetX = _e === void 0 ? 0 : _e, _f = _a.alwaysUp, alwaysUp = _f === void 0 ? false : _f, _g = _a.stayOpen, stayOpen = _g === void 0 ? false : _g, fitHeader = _a.fitHeader, onOpen = _a.onOpen, children = _a.children;
+    var title = _a.title, _c = _a.theme, theme = _c === void 0 ? 'normal' : _c, containerId = _a.containerId, className = _a.className, _d = _a.offsetY, offsetY = _d === void 0 ? 0 : _d, _e = _a.offsetX, offsetX = _e === void 0 ? 0 : _e, _f = _a.alwaysUp, alwaysUp = _f === void 0 ? false : _f, _g = _a.stayOpen, stayOpen = _g === void 0 ? false : _g, fitHeader = _a.fitHeader, onOpen = _a.onOpen, children = _a.children;
     var _h = useState(false), showDropdown = _h[0], setShowDropdown = _h[1];
     var container = useMemo(function () {
         if (showDropdown) {
@@ -65,11 +65,11 @@ export var CustomDropdown = forwardRef(function CustomDropdown(_a, ref) {
             setShowDropdown(false);
         }
     }); }, []);
-    return React.createElement("div", { className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : ''), ref: dRef, onClick: stayOpen ? function () { return setShowDropdown(true); } : function () { return setShowDropdown(function (current) { return !current; }); } },
+    return React.createElement("div", { className: "custom-dropdown theme-".concat(theme, " ").concat(className !== null && className !== void 0 ? className : ''), ref: dRef, onClick: stayOpen ? function () { return setShowDropdown(true); } : function () { return setShowDropdown(function (current) { return !current; }); } },
         React.createElement("div", { className: "custom-dropdown-header" }, title),
         showDropdown && container && Children.count(children) !== 0
             ? createPortal(React.createElement("div", { style: { position: 'relative', width: 0, height: 0 } },
-                React.createElement("div", { style: __assign({ position: "absolute" }, styling), className: "custom-dropdown theme-".concat(menuTheme, " ").concat(className !== null && className !== void 0 ? className : '') },
+                React.createElement("div", { style: __assign({ position: "absolute" }, styling), className: "custom-dropdown theme-".concat(theme, " ").concat(className !== null && className !== void 0 ? className : '') },
                     React.createElement("div", { className: 'custom-dropdown-menu', style: { width: fitHeader ? "".concat((_b = dRef.current) === null || _b === void 0 ? void 0 : _b.clientWidth, "px") : undefined }, ref: function (ref) { return setMenu(ref); } }, children))), container)
             : null);
 });

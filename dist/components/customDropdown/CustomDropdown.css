@@ -22,10 +22,17 @@
     &.theme-normal {
         .custom-dropdown-menu {
             background-color: var(--sidebar-bg);
+            color: white;
+            box-shadow: 1px 1px 10px 1px #6f6f6fb0;
         }
 
         .custom-dropdown-item {
             color: var(--secondary-primary-color);
+        }
+
+        .custom-dropdown-item:hover {
+            color: var(--secondary-primary-color);
+            background-color: var(--secondary-color);
         }
     }
 
