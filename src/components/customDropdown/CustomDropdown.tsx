@@ -13,11 +13,12 @@ import React, {
     useState
 } from "react";
 import {createPortal} from "react-dom";
-import {useClickOutside} from "../../hooks/useClickOutside";
+import {useClickOutside} from "../../hooks";
 import './CustomDropdown.css'
 
 type Props = {
     title: string | ReactElement
+    menuTheme?: 'header' | 'normal'
     containerId?: string
     className?: string
     offsetX?: number
@@ -38,6 +39,7 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
     function CustomDropdown(
         {
             title,
+            menuTheme = 'normal',
             containerId,
             className,
             offsetY = 0,
@@ -118,7 +120,7 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
                         position: "absolute",
                         ...styling
                     }}
-                         className={`custom-dropdown ${className ?? ''}`}>
+                         className={`custom-dropdown theme-${menuTheme} ${className ?? ''}`}>
                         <div className={'custom-dropdown-menu'}
                              style={{width: fitHeader ? `${dRef.current?.clientWidth}px` : undefined}}
                              ref={(ref) => setMenu(ref)}>

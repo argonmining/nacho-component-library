@@ -11,19 +11,19 @@ var __assign = (this && this.__assign) || function () {
 };
 import React, { Children, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { useClickOutside } from "../../hooks";
 import './CustomDropdown.css';
 export var CustomDropdown = forwardRef(function CustomDropdown(_a, ref) {
     var _b;
-    var title = _a.title, containerId = _a.containerId, className = _a.className, _c = _a.offsetY, offsetY = _c === void 0 ? 0 : _c, _d = _a.offsetX, offsetX = _d === void 0 ? 0 : _d, _e = _a.alwaysUp, alwaysUp = _e === void 0 ? false : _e, _f = _a.stayOpen, stayOpen = _f === void 0 ? false : _f, fitHeader = _a.fitHeader, onOpen = _a.onOpen, children = _a.children;
-    var _g = useState(false), showDropdown = _g[0], setShowDropdown = _g[1];
+    var title = _a.title, _c = _a.menuTheme, menuTheme = _c === void 0 ? 'normal' : _c, containerId = _a.containerId, className = _a.className, _d = _a.offsetY, offsetY = _d === void 0 ? 0 : _d, _e = _a.offsetX, offsetX = _e === void 0 ? 0 : _e, _f = _a.alwaysUp, alwaysUp = _f === void 0 ? false : _f, _g = _a.stayOpen, stayOpen = _g === void 0 ? false : _g, fitHeader = _a.fitHeader, onOpen = _a.onOpen, children = _a.children;
+    var _h = useState(false), showDropdown = _h[0], setShowDropdown = _h[1];
     var container = useMemo(function () {
         if (showDropdown) {
             return document.getElementById(containerId !== null && containerId !== void 0 ? containerId : 'portal-container');
         }
         return null;
     }, [containerId, showDropdown]);
-    var _h = useState(null), menu = _h[0], setMenu = _h[1];
+    var _j = useState(null), menu = _j[0], setMenu = _j[1];
     var dRef = useRef(null);
     var callback = useCallback(function () { return setShowDropdown(false); }, []);
     useClickOutside(menu, callback, dRef.current, showDropdown);
@@ -69,7 +69,7 @@ export var CustomDropdown = forwardRef(function CustomDropdown(_a, ref) {
         React.createElement("div", { className: "custom-dropdown-header" }, title),
         showDropdown && container && Children.count(children) !== 0
             ? createPortal(React.createElement("div", { style: { position: 'relative', width: 0, height: 0 } },
-                React.createElement("div", { style: __assign({ position: "absolute" }, styling), className: "custom-dropdown ".concat(className !== null && className !== void 0 ? className : '') },
+                React.createElement("div", { style: __assign({ position: "absolute" }, styling), className: "custom-dropdown theme-".concat(menuTheme, " ").concat(className !== null && className !== void 0 ? className : '') },
                     React.createElement("div", { className: 'custom-dropdown-menu', style: { width: fitHeader ? "".concat((_b = dRef.current) === null || _b === void 0 ? void 0 : _b.clientWidth, "px") : undefined }, ref: function (ref) { return setMenu(ref); } }, children))), container)
             : null);
 });
