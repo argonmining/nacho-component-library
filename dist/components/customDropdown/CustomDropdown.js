@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
 };
 import React, { Children, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { useClickOutside } from "../../hooks";
 import './CustomDropdown.css';
 export var CustomDropdown = forwardRef(function CustomDropdown(_a, ref) {
     var _b;

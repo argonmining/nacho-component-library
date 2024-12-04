@@ -13,7 +13,7 @@ import React, {
     useState
 } from "react";
 import {createPortal} from "react-dom";
-import {useClickOutside} from "../../hooks/useClickOutside";
+import {useClickOutside} from "../../hooks";
 import './CustomDropdown.css'
 
 type Props = {
