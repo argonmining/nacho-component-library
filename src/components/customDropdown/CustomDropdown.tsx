@@ -18,6 +18,7 @@ import './CustomDropdown.css'
 
 type Props = {
     title: string | ReactElement
+    disabled?: boolean
     theme?: 'header' | 'normal'
     containerId?: string
     className?: string
@@ -39,6 +40,7 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
     function CustomDropdown(
         {
             title,
+            disabled,
             theme = 'normal',
             containerId,
             className,
@@ -108,9 +110,20 @@ export const CustomDropdown = forwardRef<DropdownRef, PropsWithChildren<Props>>(
             }
         }), [])
 
+        const onClick = useCallback(()=>{
+            if (disabled){
+                return
+            }
+            if(stayOpen){
+                setShowDropdown(true)
+                return
+            }
+            setShowDropdown(current => !current)
+        },[disabled, stayOpen])
+
         return <div className={`custom-dropdown theme-${theme} ${className ?? ''}`}
                     ref={dRef}
-                    onClick={stayOpen ? () => setShowDropdown(true) : () => setShowDropdown(current => !current)}>
+                    onClick={onClick}>
             <div className="custom-dropdown-header">
                 {title}
             </div>

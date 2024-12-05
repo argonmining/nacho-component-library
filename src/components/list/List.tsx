@@ -138,6 +138,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
                 }
             </div>
             <div className={'list-paging'}>
+                {isLoading && <div className={'loading-blocker'}><LoadingSpinner/></div>}
                 {currentIndex != 0 &&
                     <div className={'icon-wrapper'} onClick={() => setCurrentIndex(current => current - 1)}>
                         <FaChevronLeft size={15}/>

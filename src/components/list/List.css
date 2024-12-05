@@ -80,11 +80,13 @@
         }
 
         .list-paging {
+            position: relative;
             display: flex;
             flex-direction: row;
             align-items: center;
             margin: 10px 10px 0 0;
             border-radius: 5px;
+            background-color: var(--primary-color);
 
             .icon-wrapper {
                 height: 100%;
@@ -106,6 +108,18 @@
                 .custom-dropdown-header {
                     padding: 0 10px;
                     border-radius: 5px;
+                    border: 1px solid lightgrey;
+                }
+            }
+            .loading-blocker{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: var(--tertiary-primary-color);
+                opacity: .5;
+                .spinner-border{
+                    height: 20px;
+                    width: 20px;
                 }
             }
         }
@@ -160,6 +174,10 @@
                 .custom-dropdown-header {
                     border: 1px solid var(--dark-border-color);
                 }
+            }
+
+            .loading-blocker{
+                background-color: var(--dark-active-bg);
             }
 
         }

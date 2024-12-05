@@ -85,6 +85,8 @@ export var List = function (_a) {
                 return React.createElement("div", { className: "amount-select ".concat(entryAmount === single ? 'active' : ''), key: single, onClick: function () { return changeEntryAmount(single); } }, single);
             })),
             React.createElement("div", { className: 'list-paging' },
+                isLoading && React.createElement("div", { className: 'loading-blocker' },
+                    React.createElement(LoadingSpinner, null)),
                 currentIndex != 0 &&
                     React.createElement("div", { className: 'icon-wrapper', onClick: function () { return setCurrentIndex(function (current) { return current - 1; }); } },
                         React.createElement(FaChevronLeft, { size: 15 })),

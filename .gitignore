@@ -25,4 +25,4 @@ yarn-error.log*
 backendapi.yaml
 package-lock.json
 .idea
-
+comp-testing/static
