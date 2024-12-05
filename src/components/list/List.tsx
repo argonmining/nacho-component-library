@@ -31,7 +31,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
 ): ReactElement => {
 
     const containerRef = useRef<HTMLDivElement | null>(null)
-    const headerRef = useRef<HTMLDivElement | null>(null)
+    const [header, setHeader] = useState<HTMLDivElement | null>()
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [entryAmount, setEntryAmount] = useState<number>(100)
 
@@ -57,11 +57,11 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
     }, [cssGrid, gridTemplate, headerElements])
 
     const handleScroll = (e: UIEvent<HTMLDivElement>): void => {
-        if (!headerRef.current) {
+        if (!header) {
             return
         }
         if (e.currentTarget?.scrollLeft !== undefined && e.currentTarget?.scrollLeft !== 0) {
-            headerRef.current.scrollLeft = e.currentTarget.scrollLeft
+            header.scrollLeft = e.currentTarget.scrollLeft
         }
     }
     const handleScrollHeader = (e: UIEvent<HTMLDivElement>): void => {
@@ -107,8 +107,9 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
         setEntryAmount(amount)
     }
 
+
     return <div className={'list'}>
-        <div ref={headerRef} onScroll={handleScrollHeader} className={'list-header'}
+        <div ref={(ref)=>setHeader(ref)} onScroll={handleScrollHeader} className={'list-header'}
              style={{gridTemplateColumns: gridTemplateInternal}}>
             {headerElements.map(getHeaderInternal)}
         </div>
@@ -116,7 +117,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
              className={'list-body'}
              ref={containerRef}
              style={{
-                 height: `calc(100% - ${(headerRef?.current?.clientHeight ?? 200) + (isLoading ? itemHeight : 0) + 40}px)`
+                 height: `calc(100% - ${(header?.clientHeight ?? 100) + (isLoading ? itemHeight : 0) + 40}px)`
              }}>
 
             {visibleItems.map((single, index) => Row(index, single))}

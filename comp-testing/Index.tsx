@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Entry} from "./Entry";
-import './App.css'
-import '../src/components/globals.css'
 import {DarkModeProvider, MobileProvider} from "../src";
+import '../src/components/globals.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const element = document.getElementById('root')
 if (element !== null) {

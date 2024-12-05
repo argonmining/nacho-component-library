@@ -5,10 +5,10 @@ import { LoadingSpinner } from "../LoadingSpinner";
 import { CustomDropdown, CustomDropdownItem } from "../customDropdown/CustomDropdown";
 var entryAmounts = [25, 50, 100, 150, 200];
 export var List = function (_a) {
-    var _b, _c;
+    var _b;
     var headerElements = _a.headerElements, getHeader = _a.getHeader, items = _a.items, itemHeight = _a.itemHeight, gridTemplate = _a.gridTemplate, getRow = _a.getRow, getElement = _a.getElement, isLoading = _a.isLoading, cssGrid = _a.cssGrid;
     var containerRef = useRef(null);
-    var headerRef = useRef(null);
+    var _c = useState(), header = _c[0], setHeader = _c[1];
     var _d = useState(0), currentIndex = _d[0], setCurrentIndex = _d[1];
     var _e = useState(100), entryAmount = _e[0], setEntryAmount = _e[1];
     var indexArray = useMemo(function () {
@@ -30,11 +30,11 @@ export var List = function (_a) {
     }, [cssGrid, gridTemplate, headerElements]);
     var handleScroll = function (e) {
         var _a, _b;
-        if (!headerRef.current) {
+        if (!header) {
             return;
         }
         if (((_a = e.currentTarget) === null || _a === void 0 ? void 0 : _a.scrollLeft) !== undefined && ((_b = e.currentTarget) === null || _b === void 0 ? void 0 : _b.scrollLeft) !== 0) {
-            headerRef.current.scrollLeft = e.currentTarget.scrollLeft;
+            header.scrollLeft = e.currentTarget.scrollLeft;
         }
     };
     var handleScrollHeader = function (e) {
@@ -72,9 +72,9 @@ export var List = function (_a) {
         setEntryAmount(amount);
     };
     return React.createElement("div", { className: 'list' },
-        React.createElement("div", { ref: headerRef, onScroll: handleScrollHeader, className: 'list-header', style: { gridTemplateColumns: gridTemplateInternal } }, headerElements.map(getHeaderInternal)),
+        React.createElement("div", { ref: function (ref) { return setHeader(ref); }, onScroll: handleScrollHeader, className: 'list-header', style: { gridTemplateColumns: gridTemplateInternal } }, headerElements.map(getHeaderInternal)),
         React.createElement("div", { onScroll: handleScroll, className: 'list-body', ref: containerRef, style: {
-                height: "calc(100% - ".concat(((_c = (_b = headerRef === null || headerRef === void 0 ? void 0 : headerRef.current) === null || _b === void 0 ? void 0 : _b.clientHeight) !== null && _c !== void 0 ? _c : 200) + (isLoading ? itemHeight : 0) + 40, "px)")
+                height: "calc(100% - ".concat(((_b = header === null || header === void 0 ? void 0 : header.clientHeight) !== null && _b !== void 0 ? _b : 100) + (isLoading ? itemHeight : 0) + 40, "px)")
             } },
             visibleItems.map(function (single, index) { return Row(index, single); }),
             visibleItems.length === 0 && !isLoading && (React.createElement("span", { className: "text-center" }, 'No tokens to display'))),
