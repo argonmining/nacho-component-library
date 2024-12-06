@@ -7,7 +7,7 @@ type Props<T> = {
     itemHeight: number;
     gridTemplate?: number[];
     getRow?: (item: T) => ReactElement;
-    getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement;
+    getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement | null;
     isLoading?: boolean;
     cssGrid?: boolean;
 };
