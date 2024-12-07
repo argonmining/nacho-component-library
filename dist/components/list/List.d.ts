@@ -10,8 +10,9 @@ type Props<T> = {
     getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement | null;
     isLoading?: boolean;
     cssGrid?: boolean;
+    alternateIdKey?: keyof T;
 };
 export declare const List: <T extends Record<string, unknown> & {
-    id: string;
-}>({ headerElements, getHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid }: Props<T>) => ReactElement;
+    id?: string;
+}>({ headerElements, getHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey }: Props<T>) => ReactElement;
 export {};

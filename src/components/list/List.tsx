@@ -87,7 +87,7 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
             return getRow(item)
         }
 
-        return <div key={item.id ?? item[alternateIdKey]} className={'list-item'}
+        return <div key={item.id as string ?? alternateIdKey ? item[alternateIdKey!] as string : String(index)} className={'list-item'}
                     style={{
                         display: 'grid',
                         gridTemplateColumns: gridTemplateInternal,
