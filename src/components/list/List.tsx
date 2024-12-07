@@ -14,9 +14,10 @@ type Props<T> = {
     getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement | null
     isLoading?: boolean
     cssGrid?: boolean
+    alternateIdKey?: keyof T
 }
 const entryAmounts = [25, 50, 100, 150, 200]
-export const List = <T extends Record<string, unknown> & { id: string }>(
+export const List = <T extends Record<string, unknown> & { id?: string }>(
     {
         headerElements,
         getHeader,
@@ -26,7 +27,8 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
         getRow,
         getElement,
         isLoading,
-        cssGrid
+        cssGrid,
+        alternateIdKey
     }: Props<T>
 ): ReactElement => {
 
@@ -85,7 +87,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
             return getRow(item)
         }
 
-        return <div key={item.id} className={'list-item'}
+        return <div key={item.id ?? item[alternateIdKey]} className={'list-item'}
                     style={{
                         display: 'grid',
                         gridTemplateColumns: gridTemplateInternal,
@@ -109,7 +111,7 @@ export const List = <T extends Record<string, unknown> & { id: string }>(
 
 
     return <div className={'list'}>
-        <div ref={(ref)=>setHeader(ref)} onScroll={handleScrollHeader} className={'list-header'}
+        <div ref={(ref) => setHeader(ref)} onScroll={handleScrollHeader} className={'list-header'}
              style={{gridTemplateColumns: gridTemplateInternal}}>
             {headerElements.map(getHeaderInternal)}
         </div>
