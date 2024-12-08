@@ -1,4 +1,4 @@
-import React, {ReactElement, UIEvent, useCallback, useMemo, useRef, useState} from "react";
+import React, {ReactElement, UIEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {FaChevronLeft, FaChevronRight} from "react-icons/fa6";
 import './List.css'
 import {LoadingSpinner} from "../LoadingSpinner";
@@ -36,6 +36,11 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
     const [header, setHeader] = useState<HTMLDivElement | null>()
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [entryAmount, setEntryAmount] = useState<number>(100)
+
+    useEffect(() => {
+        // if the data changed, we go back to the first page
+        setCurrentIndex(0)
+    }, [items]);
 
     const indexArray = useMemo((): number[] => {
         const arr: number[] = []
@@ -87,7 +92,8 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
             return getRow(item)
         }
 
-        return <div key={item.id as string ?? alternateIdKey ? item[alternateIdKey!] as string : String(index)} className={'list-item'}
+        return <div key={item.id as string ?? alternateIdKey ? item[alternateIdKey!] as string : String(index)}
+                    className={'list-item'}
                     style={{
                         display: 'grid',
                         gridTemplateColumns: gridTemplateInternal,

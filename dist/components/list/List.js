@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import './List.css';
 import { LoadingSpinner } from "../LoadingSpinner";
@@ -11,6 +11,10 @@ export var List = function (_a) {
     var _c = useState(), header = _c[0], setHeader = _c[1];
     var _d = useState(0), currentIndex = _d[0], setCurrentIndex = _d[1];
     var _e = useState(100), entryAmount = _e[0], setEntryAmount = _e[1];
+    useEffect(function () {
+        // if the data changed, we go back to the first page
+        setCurrentIndex(0);
+    }, [items]);
     var indexArray = useMemo(function () {
         var arr = [];
         for (var i = 0; i < Math.ceil(items.length / entryAmount); i++) {
