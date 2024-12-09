@@ -1,24 +1,59 @@
-import React, {FC, PropsWithChildren, ReactNode, useState} from "react";
+import React, {FC, PropsWithChildren, ReactElement, useRef, useState} from "react";
 import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 import './ExpandableDiv.css'
+import {uniqueId} from "lodash";
 
-type Props = {
-    title?: string | ReactNode
+type PropsWithoutIcon = {
+    icon?: never
+    title?: string | ReactElement
+}
+type PropsWithIcon = {
+    icon?: ReactElement
+    title?: string
 }
 
-export const ExpandableDiv: FC<PropsWithChildren<Props>> = (
+type ExpandableDiv = PropsWithoutIcon | PropsWithIcon
+export const ExpandableDiv: FC<PropsWithChildren<ExpandableDiv>> = (
+    {
+        children,
+        ...props
+    }
+) => {
+    const [isExtended, setIsExtended] = useState<boolean>(false)
+    const id = useRef(uniqueId()).current
+
+    return <ControlledExpandableDiv changeExtended={() => setIsExtended(current => !current)}
+                                    isExtended={isExtended}
+                                    id={id}
+                                    {...props}>
+        {children}
+    </ControlledExpandableDiv>
+}
+
+type ControlledExpandableDiv = ExpandableDiv & {
+    id: string
+    isExtended: boolean
+    changeExtended: (id?: string) => void
+}
+export const ControlledExpandableDiv: FC<PropsWithChildren<ControlledExpandableDiv>> = (
     {
         title,
+        id,
+        icon,
+        isExtended,
+        changeExtended,
         children
     }
 ) => {
-    const [isExtended, setIsExtended] = useState<boolean>()
     return <div className={'expandable-div'}>
         <div className={`expandable-div-header ${isExtended ? 'extended' : ''}`}
-             onClick={() => setIsExtended(current => !current)}>
+             onClick={() => changeExtended(id)}>
+            {icon}
             {title && typeof title === 'object' ? title : <span>{title}</span>}
             {isExtended ? <FaChevronUp/> : <FaChevronDown/>}
         </div>
-        {isExtended && <div className={'expandable-div-body'}>{children}</div>}
+        <div className={`expandable-div-body ${isExtended ? 'extended' : ''}`}>
+            {isExtended && children}
+        </div>
     </div>
 }
