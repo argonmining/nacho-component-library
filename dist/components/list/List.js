@@ -6,7 +6,7 @@ import { CustomDropdown, CustomDropdownItem } from "../customDropdown/CustomDrop
 var entryAmounts = [25, 50, 100, 150, 200];
 export var List = function (_a) {
     var _b;
-    var headerElements = _a.headerElements, getHeader = _a.getHeader, _c = _a.showHeader, showHeader = _c === void 0 ? true : _c, items = _a.items, itemHeight = _a.itemHeight, gridTemplate = _a.gridTemplate, getRow = _a.getRow, getElement = _a.getElement, isLoading = _a.isLoading, cssGrid = _a.cssGrid, alternateIdKey = _a.alternateIdKey;
+    var headerElements = _a.headerElements, getHeader = _a.getHeader, _c = _a.showHeader, showHeader = _c === void 0 ? true : _c, items = _a.items, itemHeight = _a.itemHeight, gridTemplate = _a.gridTemplate, getRow = _a.getRow, getElement = _a.getElement, isLoading = _a.isLoading, cssGrid = _a.cssGrid, alternateIdKey = _a.alternateIdKey, noDataText = _a.noDataText;
     var containerRef = useRef(null);
     var _d = useState(), header = _d[0], setHeader = _d[1];
     var _e = useState(0), currentIndex = _e[0], setCurrentIndex = _e[1];
@@ -83,7 +83,7 @@ export var List = function (_a) {
                 height: "calc(100% - ".concat((!showHeader ? 0 : (_b = header === null || header === void 0 ? void 0 : header.clientHeight) !== null && _b !== void 0 ? _b : 50) + (isLoading ? itemHeight : 0) + 40, "px)")
             } },
             visibleItems.map(function (single, index) { return Row(index, single); }),
-            visibleItems.length === 0 && !isLoading && (React.createElement("span", { className: "text-center" }, 'No tokens to display'))),
+            visibleItems.length === 0 && !isLoading && (React.createElement("span", { className: "text-center" }, noDataText !== null && noDataText !== void 0 ? noDataText : 'No tokens to display'))),
         isLoading ? React.createElement("div", { style: { height: itemHeight } },
             React.createElement(LoadingSpinner, null)) : null,
         React.createElement("div", { className: 'page-control' },

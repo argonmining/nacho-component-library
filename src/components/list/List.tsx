@@ -14,6 +14,7 @@ type Props<T> = {
     isLoading?: boolean
     cssGrid?: boolean
     alternateIdKey?: keyof T
+    noDataText?: string
 }
 
 interface HeadlessList<T> extends Props<T> {
@@ -27,7 +28,7 @@ interface List<T> extends Props<T> {
 }
 
 const entryAmounts = [25, 50, 100, 150, 200]
-export const List = <T extends Record<string, unknown> & { id?: string }>(
+export const List = <T extends Record<string, unknown> & { id?: string | number }>(
     {
         headerElements,
         getHeader,
@@ -39,7 +40,8 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
         getElement,
         isLoading,
         cssGrid,
-        alternateIdKey
+        alternateIdKey,
+        noDataText
     }: HeadlessList<T> | List<T>
 ): ReactElement => {
 
@@ -104,7 +106,7 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
             return getRow(item)
         }
 
-        return <div key={item.id as string ?? alternateIdKey ? item[alternateIdKey!] as string : String(index)}
+        return <div key={item.id ?? alternateIdKey ? item[alternateIdKey!] as string : String(index)}
                     className={'list-item'}
                     style={{
                         display: 'grid',
@@ -145,7 +147,7 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
             {visibleItems.map((single, index) => Row(index, single))}
             {visibleItems.length === 0 && !isLoading && (
                 <span className="text-center">
-                    {'No tokens to display'}
+                    {noDataText ?? 'No tokens to display'}
                 </span>
             )}
         </div>
