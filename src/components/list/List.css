@@ -50,6 +50,9 @@
                 background-color: white;
             }
         }
+        .hover {
+            cursor: pointer;
+        }
     }
 
     .page-control {

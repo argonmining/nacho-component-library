@@ -15,6 +15,7 @@ type Props<T> = {
     cssGrid?: boolean
     alternateIdKey?: keyof T
     noDataText?: string
+    onClickRow?: (item: T) => void
 }
 
 interface HeadlessList<T> extends Props<T> {
@@ -41,7 +42,8 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
         isLoading,
         cssGrid,
         alternateIdKey,
-        noDataText
+        noDataText,
+        onClickRow
     }: HeadlessList<T> | List<T>
 ): ReactElement => {
 
@@ -107,7 +109,8 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
         }
 
         return <div key={item.id ?? alternateIdKey ? item[alternateIdKey!] as string : String(index)}
-                    className={'list-item'}
+                    className={`list-item ${onClickRow ? 'hover' : ''}`}
+                    onClick={onClickRow ? () => onClickRow(item) : undefined}
                     style={{
                         display: 'grid',
                         gridTemplateColumns: gridTemplateInternal,

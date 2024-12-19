@@ -11,6 +11,7 @@ type Props<T> = {
     cssGrid?: boolean;
     alternateIdKey?: keyof T;
     noDataText?: string;
+    onClickRow?: (item: T) => void;
 };
 interface HeadlessList<T> extends Props<T> {
     getHeader?: never;
@@ -22,5 +23,5 @@ interface List<T> extends Props<T> {
 }
 export declare const List: <T extends Record<string, unknown> & {
     id?: string | number;
-}>({ headerElements, getHeader, showHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey, noDataText }: HeadlessList<T> | List<T>) => ReactElement;
+}>({ headerElements, getHeader, showHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey, noDataText, onClickRow }: HeadlessList<T> | List<T>) => ReactElement;
 export {};

@@ -6,7 +6,7 @@ import { CustomDropdown, CustomDropdownItem } from "../customDropdown/CustomDrop
 var entryAmounts = [25, 50, 100, 150, 200];
 export var List = function (_a) {
     var _b;
-    var headerElements = _a.headerElements, getHeader = _a.getHeader, _c = _a.showHeader, showHeader = _c === void 0 ? true : _c, items = _a.items, itemHeight = _a.itemHeight, gridTemplate = _a.gridTemplate, getRow = _a.getRow, getElement = _a.getElement, isLoading = _a.isLoading, cssGrid = _a.cssGrid, alternateIdKey = _a.alternateIdKey, noDataText = _a.noDataText;
+    var headerElements = _a.headerElements, getHeader = _a.getHeader, _c = _a.showHeader, showHeader = _c === void 0 ? true : _c, items = _a.items, itemHeight = _a.itemHeight, gridTemplate = _a.gridTemplate, getRow = _a.getRow, getElement = _a.getElement, isLoading = _a.isLoading, cssGrid = _a.cssGrid, alternateIdKey = _a.alternateIdKey, noDataText = _a.noDataText, onClickRow = _a.onClickRow;
     var containerRef = useRef(null);
     var _d = useState(), header = _d[0], setHeader = _d[1];
     var _e = useState(0), currentIndex = _e[0], setCurrentIndex = _e[1];
@@ -61,7 +61,7 @@ export var List = function (_a) {
         if (getRow) {
             return getRow(item);
         }
-        return React.createElement("div", { key: ((_a = item.id) !== null && _a !== void 0 ? _a : alternateIdKey) ? item[alternateIdKey] : String(index), className: 'list-item', style: {
+        return React.createElement("div", { key: ((_a = item.id) !== null && _a !== void 0 ? _a : alternateIdKey) ? item[alternateIdKey] : String(index), className: "list-item ".concat(onClickRow ? 'hover' : ''), onClick: onClickRow ? function () { return onClickRow(item); } : undefined, style: {
                 display: 'grid',
                 gridTemplateColumns: gridTemplateInternal,
                 height: itemHeight,
