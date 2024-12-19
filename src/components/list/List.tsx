@@ -6,7 +6,6 @@ import {CustomDropdown, CustomDropdownItem} from "../customDropdown/CustomDropdo
 
 type Props<T> = {
     headerElements: string[]
-    getHeader?: (header: string) => ReactElement | null
     items: T[]
     itemHeight: number,
     gridTemplate?: number[]
@@ -16,11 +15,23 @@ type Props<T> = {
     cssGrid?: boolean
     alternateIdKey?: keyof T
 }
+
+interface HeadlessList<T> extends Props<T> {
+    getHeader?: never
+    showHeader?: boolean
+}
+
+interface List<T> extends Props<T> {
+    getHeader?: (header: string) => ReactElement | null
+    showHeader?: never
+}
+
 const entryAmounts = [25, 50, 100, 150, 200]
 export const List = <T extends Record<string, unknown> & { id?: string }>(
     {
         headerElements,
         getHeader,
+        showHeader = true,
         items,
         itemHeight,
         gridTemplate,
@@ -29,7 +40,7 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
         isLoading,
         cssGrid,
         alternateIdKey
-    }: Props<T>
+    }: HeadlessList<T> | List<T>
 ): ReactElement => {
 
     const containerRef = useRef<HTMLDivElement | null>(null)
@@ -87,6 +98,7 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
         return <div key={value} className={`header-item ${value}`}>{value}</div>
 
     }, [getHeader])
+
     const Row = (index: number, item: T): ReactElement => {
         if (getRow) {
             return getRow(item)
@@ -117,15 +129,17 @@ export const List = <T extends Record<string, unknown> & { id?: string }>(
 
 
     return <div className={'list'}>
-        <div ref={(ref) => setHeader(ref)} onScroll={handleScrollHeader} className={'list-header'}
-             style={{gridTemplateColumns: gridTemplateInternal}}>
-            {headerElements.map(getHeaderInternal)}
-        </div>
+        {showHeader &&
+            <div ref={(ref) => setHeader(ref)} onScroll={handleScrollHeader} className={'list-header'}
+                 style={{gridTemplateColumns: gridTemplateInternal}}>
+                {headerElements.map(getHeaderInternal)}
+            </div>
+        }
         <div onScroll={handleScroll}
              className={'list-body'}
              ref={containerRef}
              style={{
-                 height: `calc(100% - ${(header?.clientHeight ?? 100) + (isLoading ? itemHeight : 0) + 40}px)`
+                 height: `calc(100% - ${(!showHeader ? 0 : header?.clientHeight ?? 50) + (isLoading ? itemHeight : 0) + 40}px)`
              }}>
 
             {visibleItems.map((single, index) => Row(index, single))}
