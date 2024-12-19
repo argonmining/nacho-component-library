@@ -2,7 +2,6 @@ import { ReactElement } from "react";
 import './List.css';
 type Props<T> = {
     headerElements: string[];
-    getHeader?: (header: string) => ReactElement | null;
     items: T[];
     itemHeight: number;
     gridTemplate?: number[];
@@ -12,7 +11,15 @@ type Props<T> = {
     cssGrid?: boolean;
     alternateIdKey?: keyof T;
 };
+interface HeadlessList<T> extends Props<T> {
+    getHeader?: never;
+    showHeader?: boolean;
+}
+interface List<T> extends Props<T> {
+    getHeader?: (header: string) => ReactElement | null;
+    showHeader?: never;
+}
 export declare const List: <T extends Record<string, unknown> & {
     id?: string;
-}>({ headerElements, getHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey }: Props<T>) => ReactElement;
+}>({ headerElements, getHeader, showHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey }: HeadlessList<T> | List<T>) => ReactElement;
 export {};
