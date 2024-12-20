@@ -120,9 +120,9 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
                         right: 0,
                     }}>
             {headerElements.map(single => getElement
-                ? <div key={`${single}`} style={{height: itemHeight}}
+                ? <div key={`${single}`} style={{height: '100%'}}
                        className={`list-column ${single}`}>{getElement(single, item)}</div>
-                : <div key={`${single}`} style={{height: itemHeight}}
+                : <div key={`${single}`} style={{height: '100%'}}
                        className={`list-column ${single}`}>{item[single] as string}</div>)}
         </div>
     }

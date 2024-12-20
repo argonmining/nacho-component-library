@@ -69,8 +69,8 @@ export var List = function (_a) {
                 left: 0,
                 right: 0,
             } }, headerElements.map(function (single) { return getElement
-            ? React.createElement("div", { key: "".concat(single), style: { height: itemHeight }, className: "list-column ".concat(single) }, getElement(single, item))
-            : React.createElement("div", { key: "".concat(single), style: { height: itemHeight }, className: "list-column ".concat(single) }, item[single]); }));
+            ? React.createElement("div", { key: "".concat(single), style: { height: '100%' }, className: "list-column ".concat(single) }, getElement(single, item))
+            : React.createElement("div", { key: "".concat(single), style: { height: '100%' }, className: "list-column ".concat(single) }, item[single]); }));
     };
     var changeEntryAmount = function (amount) {
         setCurrentIndex(0);

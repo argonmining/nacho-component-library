@@ -47,11 +47,11 @@
                 width: 100%;
                 overflow: hidden;
                 text-wrap: nowrap;
-                background-color: white;
             }
         }
         .hover:hover {
             cursor: pointer;
+            background-color: var(--nav-hover-bg);
         }
     }
 
@@ -159,10 +159,9 @@
             background-color: var(--dark-card-bg);
             border-bottom: 1px solid var(--dark-border-color);
             color: white;
-
-            .list-column {
-                background-color: var(--dark-card-bg);
-            }
+        }
+        .hover:hover {
+            background-color: var(--dark-nav-hover-bg);
         }
     }
 
