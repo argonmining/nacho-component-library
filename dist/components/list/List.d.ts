@@ -3,7 +3,8 @@ import './List.css';
 type Props<T> = {
     headerElements: string[];
     items: T[];
-    itemHeight: number;
+    itemHeight?: number;
+    minItemHeight?: number;
     gridTemplate?: number[];
     getRow?: (item: T) => ReactElement;
     getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement | null;
@@ -23,5 +24,5 @@ interface List<T> extends Props<T> {
 }
 export declare const List: <T extends Record<string, unknown> & {
     id?: string | number;
-}>({ headerElements, getHeader, showHeader, items, itemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey, noDataText, onClickRow }: HeadlessList<T> | List<T>) => ReactElement;
+}>({ headerElements, getHeader, showHeader, items, itemHeight, minItemHeight, gridTemplate, getRow, getElement, isLoading, cssGrid, alternateIdKey, noDataText, onClickRow }: HeadlessList<T> | List<T>) => ReactElement;
 export {};

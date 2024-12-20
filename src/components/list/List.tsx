@@ -7,7 +7,8 @@ import {CustomDropdown, CustomDropdownItem} from "../customDropdown/CustomDropdo
 type Props<T> = {
     headerElements: string[]
     items: T[]
-    itemHeight: number,
+    itemHeight?: number,
+    minItemHeight?: number,
     gridTemplate?: number[]
     getRow?: (item: T) => ReactElement
     getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement | null
@@ -36,6 +37,7 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
         showHeader = true,
         items,
         itemHeight,
+        minItemHeight,
         gridTemplate,
         getRow,
         getElement,
@@ -115,6 +117,7 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
                         display: 'grid',
                         gridTemplateColumns: gridTemplateInternal,
                         height: itemHeight,
+                        minHeight: minItemHeight,
                         margin: '1px 0',
                         left: 0,
                         right: 0,
@@ -153,7 +156,7 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
              className={'list-body'}
              ref={containerRef}
              style={{
-                 height: `calc(100% - ${(!showHeader ? 0 : header?.clientHeight ?? 50) + (isLoading ? itemHeight : 0) + 40}px)`
+                 height: `calc(100% - ${(!showHeader ? 0 : header?.clientHeight ?? 50) + (isLoading ? itemHeight ?? 40 : 0) + 40}px)`
              }}>
 
             {visibleItems.map((single, index) => Row(index, single))}
@@ -163,7 +166,7 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
                 </span>
             )}
         </div>
-        {isLoading ? <div key={'loading-spinner'} style={{height: itemHeight}}><LoadingSpinner/></div> : null}
+        {isLoading ? <div key={'loading-spinner'} style={{height: itemHeight ?? 40}}><LoadingSpinner/></div> : null}
         <div className={'page-control'}>
             <div className={'page-entry-amount-select'}>
                 {entryAmounts.map(single =>
