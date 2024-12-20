@@ -69,8 +69,8 @@ export var List = function (_a) {
                 left: 0,
                 right: 0,
             } }, headerElements.map(function (single) { return getElement
-            ? React.createElement("div", { key: "".concat(single), style: { height: '100%' }, className: "list-column ".concat(single) }, getElement(single, item))
-            : React.createElement("div", { key: "".concat(single), style: { height: '100%' }, className: "list-column ".concat(single) }, item[single]); }));
+            ? React.createElement("div", { key: single, style: { height: '100%' }, className: "list-column ".concat(single) }, getElement(single, item))
+            : React.createElement("div", { key: single, style: { height: '100%' }, className: "list-column ".concat(single) }, item[single]); }));
     };
     var changeEntryAmount = function (amount) {
         setCurrentIndex(0);
@@ -78,13 +78,13 @@ export var List = function (_a) {
     };
     return React.createElement("div", { className: 'list' },
         showHeader &&
-            React.createElement("div", { ref: function (ref) { return setHeader(ref); }, onScroll: handleScrollHeader, className: 'list-header', style: { gridTemplateColumns: gridTemplateInternal } }, headerElements.map(getHeaderInternal)),
+            React.createElement("div", { ref: function (ref) { return setHeader(ref); }, key: 'header', onScroll: handleScrollHeader, className: 'list-header', style: { gridTemplateColumns: gridTemplateInternal } }, headerElements.map(getHeaderInternal)),
         React.createElement("div", { onScroll: handleScroll, className: 'list-body', ref: containerRef, style: {
                 height: "calc(100% - ".concat((!showHeader ? 0 : (_b = header === null || header === void 0 ? void 0 : header.clientHeight) !== null && _b !== void 0 ? _b : 50) + (isLoading ? itemHeight : 0) + 40, "px)")
             } },
             visibleItems.map(function (single, index) { return Row(index, single); }),
-            visibleItems.length === 0 && !isLoading && (React.createElement("span", { className: "text-center" }, noDataText !== null && noDataText !== void 0 ? noDataText : 'No tokens to display'))),
-        isLoading ? React.createElement("div", { style: { height: itemHeight } },
+            visibleItems.length === 0 && !isLoading && (React.createElement("span", { key: 'no-data', className: "text-center" }, noDataText !== null && noDataText !== void 0 ? noDataText : 'No tokens to display'))),
+        isLoading ? React.createElement("div", { key: 'loading-spinner', style: { height: itemHeight } },
             React.createElement(LoadingSpinner, null)) : null,
         React.createElement("div", { className: 'page-control' },
             React.createElement("div", { className: 'page-entry-amount-select' }, entryAmounts.map(function (single) {

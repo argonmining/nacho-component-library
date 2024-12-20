@@ -120,10 +120,17 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
                         right: 0,
                     }}>
             {headerElements.map(single => getElement
-                ? <div key={`${single}`} style={{height: '100%'}}
-                       className={`list-column ${single}`}>{getElement(single, item)}</div>
-                : <div key={`${single}`} style={{height: '100%'}}
-                       className={`list-column ${single}`}>{item[single] as string}</div>)}
+                ? <div key={single}
+                       style={{height: '100%'}}
+                       className={`list-column ${single}`}>
+                    {getElement(single, item)}
+                </div>
+                : <div key={single}
+                       style={{height: '100%'}}
+                       className={`list-column ${single}`}>
+                    {item[single] as string}
+                </div>
+            )}
         </div>
     }
 
@@ -132,10 +139,12 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
         setEntryAmount(amount)
     }
 
-
     return <div className={'list'}>
         {showHeader &&
-            <div ref={(ref) => setHeader(ref)} onScroll={handleScrollHeader} className={'list-header'}
+            <div ref={(ref) => setHeader(ref)}
+                 key={'header'}
+                 onScroll={handleScrollHeader}
+                 className={'list-header'}
                  style={{gridTemplateColumns: gridTemplateInternal}}>
                 {headerElements.map(getHeaderInternal)}
             </div>
@@ -149,12 +158,12 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
 
             {visibleItems.map((single, index) => Row(index, single))}
             {visibleItems.length === 0 && !isLoading && (
-                <span className="text-center">
+                <span key={'no-data'} className="text-center">
                     {noDataText ?? 'No tokens to display'}
                 </span>
             )}
         </div>
-        {isLoading ? <div style={{height: itemHeight}}><LoadingSpinner/></div> : null}
+        {isLoading ? <div key={'loading-spinner'} style={{height: itemHeight}}><LoadingSpinner/></div> : null}
         <div className={'page-control'}>
             <div className={'page-entry-amount-select'}>
                 {entryAmounts.map(single =>
