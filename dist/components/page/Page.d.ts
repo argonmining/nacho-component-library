@@ -4,6 +4,7 @@ type Props = {
     header: string;
     additionalHeaderInfo?: string;
     additionalHeaderComponent?: ReactElement;
+    className?: string;
 };
 export declare const Page: FC<PropsWithChildren<Props>>;
 export {};
