@@ -11,7 +11,7 @@ type Props<T> = {
     minItemHeight?: number,
     gridTemplate?: number[]
     getRow?: (item: T) => ReactElement
-    getElement?: (header: string | Partial<keyof T>, item: T) => ReactElement | null
+    getElement?: (header: string | Partial<keyof T>, item: T, index: number) => ReactElement | null
     isLoading?: boolean
     cssGrid?: boolean
     alternateIdKey?: keyof T
@@ -126,7 +126,7 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
                 ? <div key={single}
                        style={{height: '100%'}}
                        className={`list-column ${single}`}>
-                    {getElement(single, item)}
+                    {getElement(single, item, index)}
                 </div>
                 : <div key={single}
                        style={{height: '100%'}}

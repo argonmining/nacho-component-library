@@ -70,7 +70,7 @@ export var List = function (_a) {
                 left: 0,
                 right: 0,
             } }, headerElements.map(function (single) { return getElement
-            ? React.createElement("div", { key: single, style: { height: '100%' }, className: "list-column ".concat(single) }, getElement(single, item))
+            ? React.createElement("div", { key: single, style: { height: '100%' }, className: "list-column ".concat(single) }, getElement(single, item, index))
             : React.createElement("div", { key: single, style: { height: '100%' }, className: "list-column ".concat(single) }, item[single]); }));
     };
     var changeEntryAmount = function (amount) {
