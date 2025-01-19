@@ -5,7 +5,7 @@ type Props<T> = {
     items: T[];
     itemHeight?: number;
     minItemHeight?: number;
-    gridTemplate?: number[];
+    gridTemplate?: number[] | string;
     getRow?: (item: T) => ReactElement;
     getElement?: (header: string | Partial<keyof T>, item: T, index: number) => ReactElement | null;
     isLoading?: boolean;

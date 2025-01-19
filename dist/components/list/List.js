@@ -28,6 +28,9 @@ export var List = function (_a) {
             return;
         }
         if (gridTemplate) {
+            if (typeof gridTemplate === 'string') {
+                return gridTemplate;
+            }
             return gridTemplate.map(function (single) { return "".concat(single, "px"); }).join(" ");
         }
         return headerElements.map(function () { return '1fr'; }).join(" ");
