@@ -54,11 +54,6 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [entryAmount, setEntryAmount] = useState<number>(100)
 
-    useEffect(() => {
-        // if the data changed, we go back to the first page
-        setCurrentIndex(0)
-    }, [items]);
-
     const indexArray = useMemo((): number[] => {
         const arr: number[] = []
         for (let i = 0; i < Math.ceil(items.length / entryAmount); i++) {
@@ -66,6 +61,17 @@ export const List = <T extends Record<string, unknown> & { id?: string | number 
         }
         return arr
     }, [entryAmount, items.length])
+
+    useEffect(() => {
+        if (items.length === 0) {
+            setCurrentIndex(0)
+            return
+        }
+        if (!indexArray.includes(currentIndex)) {
+            //if the index is not in the index array anymore (for example data is deleted), we set the index to the last page
+            setCurrentIndex(indexArray[indexArray.length - 1])
+        }
+    }, [items, indexArray, currentIndex]);
 
     const visibleItems = useMemo(() => items.slice(currentIndex * entryAmount, (currentIndex + 1) * entryAmount), [currentIndex, entryAmount, items])
 

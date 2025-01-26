@@ -11,10 +11,6 @@ export var List = function (_a) {
     var _d = useState(), header = _d[0], setHeader = _d[1];
     var _e = useState(0), currentIndex = _e[0], setCurrentIndex = _e[1];
     var _f = useState(100), entryAmount = _f[0], setEntryAmount = _f[1];
-    useEffect(function () {
-        // if the data changed, we go back to the first page
-        setCurrentIndex(0);
-    }, [items]);
     var indexArray = useMemo(function () {
         var arr = [];
         for (var i = 0; i < Math.ceil(items.length / entryAmount); i++) {
@@ -22,6 +18,16 @@ export var List = function (_a) {
         }
         return arr;
     }, [entryAmount, items.length]);
+    useEffect(function () {
+        if (items.length === 0) {
+            setCurrentIndex(0);
+            return;
+        }
+        if (!indexArray.includes(currentIndex)) {
+            //if the index is not in the index array anymore (for example data is deleted), we set the index to the last page
+            setCurrentIndex(indexArray[indexArray.length - 1]);
+        }
+    }, [items, indexArray, currentIndex]);
     var visibleItems = useMemo(function () { return items.slice(currentIndex * entryAmount, (currentIndex + 1) * entryAmount); }, [currentIndex, entryAmount, items]);
     var gridTemplateInternal = useMemo(function () {
         if (cssGrid) {
